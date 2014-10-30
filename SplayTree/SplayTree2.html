@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>adt/splay_tree_3</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="adt/splay_tree_3"><meta name="groc-project-path" content="js/src/adt/splay_tree_3.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-algo"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-algo/blob/master/js/src/adt/splay_tree_3.js">js/src/adt/splay_tree_3.js</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> splay_tree_3_t = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(diff)</span>{</span>
+<!DOCTYPE html><html lang="en"><head><title>SplayTree/SplayTree2</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="SplayTree/SplayTree2"><meta name="groc-project-path" content="js/src/SplayTree/SplayTree2.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-bst"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-bst/blob/master/js/src/SplayTree/SplayTree2.js">js/src/SplayTree/SplayTree2.js</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> __SplayTree2__ = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(diff)</span>{</span>
 
 	<span class="hljs-keyword">var</span> insert = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(pt, v)</span>{</span>
 		<span class="hljs-keyword">var</span> w = diff(v, pt[<span class="hljs-number">2</span>]) &gt; <span class="hljs-number">0</span> | <span class="hljs-number">0</span>;
@@ -8,45 +8,46 @@
 
 	<span class="hljs-keyword">var</span> splay = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(el, v)</span>{</span>
 
-		<span class="hljs-keyword">var</span> l, r, t, y, x, d;
-		l = r = x = [<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">undefined</span>];
-		t = el;
-		<span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
-			d = diff(v, t[<span class="hljs-number">2</span>]);
-			<span class="hljs-keyword">if</span> (d &lt; <span class="hljs-number">0</span>) {
-				<span class="hljs-keyword">if</span> (!t[<span class="hljs-number">0</span>]) <span class="hljs-keyword">break</span>;
-				<span class="hljs-keyword">if</span> (diff(v, t[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>]) &lt; <span class="hljs-number">0</span>) {
-					y = t[<span class="hljs-number">0</span>];
-					t[<span class="hljs-number">0</span>] = y[<span class="hljs-number">1</span>];
-					y[<span class="hljs-number">1</span>] = t;
-					t = y;
-					<span class="hljs-keyword">if</span> (!t[<span class="hljs-number">0</span>]) <span class="hljs-keyword">break</span>;
-				}
-				r[<span class="hljs-number">0</span>] = t;
-				r = t;
-				t = t[<span class="hljs-number">0</span>];
-			}
-			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (d &gt; <span class="hljs-number">0</span>) {
-				<span class="hljs-keyword">if</span> (!t[<span class="hljs-number">1</span>]) <span class="hljs-keyword">break</span>;
-				<span class="hljs-keyword">if</span> (diff(v, t[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>]) &gt; <span class="hljs-number">0</span>) {
-					y = t[<span class="hljs-number">1</span>];
-					t[<span class="hljs-number">1</span>] = y[<span class="hljs-number">0</span>];
-					y[<span class="hljs-number">0</span>] = t;
-					t = y;
-					<span class="hljs-keyword">if</span> (!t[<span class="hljs-number">1</span>]) <span class="hljs-keyword">break</span>;
-				}
-				l[<span class="hljs-number">1</span>] = t;
-				l = t;
-				t = t[<span class="hljs-number">1</span>];
-			}
-			<span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;
-		}
-		l[<span class="hljs-number">1</span>] = t[<span class="hljs-number">0</span>];
-		r[<span class="hljs-number">0</span>] = t[<span class="hljs-number">1</span>];
-		t[<span class="hljs-number">0</span>] = x[<span class="hljs-number">1</span>];
-		t[<span class="hljs-number">1</span>] = x[<span class="hljs-number">0</span>];
+		<span class="hljs-keyword">var</span> turn = [], path = [], pt = el, f, d, w, i, a, zoz, zoz1, zoz2, pox, p, g;
 
-		<span class="hljs-keyword">return</span> [diff(v, t[<span class="hljs-number">2</span>]) === <span class="hljs-number">0</span>, t];
+		<span class="hljs-keyword">while</span>(f === <span class="hljs-literal">undefined</span>){
+			d = diff(v, pt[<span class="hljs-number">2</span>]);
+			<span class="hljs-keyword">if</span>(d === <span class="hljs-number">0</span>) f = <span class="hljs-literal">true</span>;
+			<span class="hljs-keyword">else</span> {
+				w = d &gt; <span class="hljs-number">0</span> | <span class="hljs-number">0</span>;
+				<span class="hljs-keyword">if</span>(pt[w] === <span class="hljs-literal">null</span>) f = <span class="hljs-literal">false</span>;
+				<span class="hljs-keyword">else</span>{
+					path.push(pt);
+					turn.push(w);
+					pt = pt[w];
+				}
+			}
+		}
+
+		i = turn.length - <span class="hljs-number">1</span>;
+		a = [pt, <span class="hljs-literal">null</span>];
+		<span class="hljs-keyword">for</span> (; i &gt; <span class="hljs-number">0</span>; i -= <span class="hljs-number">2</span>) {
+			zoz2 = turn[i];
+			zoz1 = turn[i-<span class="hljs-number">1</span>];
+			pox = zoz1 === zoz2 | <span class="hljs-number">0</span>;
+			g = path[i-<span class="hljs-number">1</span>];
+			p = path[i];
+			a[<span class="hljs-number">1</span>] = p;
+
+			g[zoz1] = a[pox][<span class="hljs-number">1</span> - zoz1];
+			a[pox][<span class="hljs-number">1</span> - zoz1] = g;
+
+			p[zoz2] = pt[<span class="hljs-number">1</span> - zoz2];
+			pt[<span class="hljs-number">1</span> - zoz2] = p;
+		}
+
+		<span class="hljs-keyword">if</span> (i === <span class="hljs-number">0</span>) {
+			zoz = turn[<span class="hljs-number">0</span>];
+			el[zoz] = pt[<span class="hljs-number">1</span> - zoz];
+			pt[<span class="hljs-number">1</span> - zoz] = el;
+		}
+
+		<span class="hljs-keyword">return</span> [f, pt];
 	};
 
 	<span class="hljs-keyword">var</span> remove = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(el, v)</span>{</span>
@@ -95,4 +96,4 @@
 
 };
 
-exports.splay_tree_3_t = splay_tree_3_t;</div></div></div></div></body></html>
+exports.__SplayTree2__ = __SplayTree2__;</div></div></div></div></body></html>
