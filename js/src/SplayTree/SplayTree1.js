@@ -1,5 +1,5 @@
 
-var splay_tree_t = function ( diff ) {
+var __SplayTree1__ = function ( diff ) {
 
 	var zig, zag, zigzig, zigzag, zagzig, zagzag, z, zz;
 	var insert, splay, remove, in_order_traversal, splay_tree;
@@ -165,4 +165,4 @@ var splay_tree_t = function ( diff ) {
 
 };
 
-exports.splay_tree_t = splay_tree_t;
+exports.__SplayTree1__ = __SplayTree1__;

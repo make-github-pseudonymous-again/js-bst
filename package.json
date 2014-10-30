@@ -1,11 +1,11 @@
 {
-	"name": "aureooms-js-algo",
-	"description": "playground for algorithmic code bricks in JavaScript",
-	"homepage": "https://aureooms.github.io/js-algo",
-	"main": "js/dist/algo.js",
+	"name": "aureooms-js-bst",
+	"description": "binary search tree code bricks in JavaScript",
+	"homepage": "https://aureooms.github.io/js-bst",
+	"main": "js/dist/bst.js",
 	"version": "1.0.0",
 	"repository": {
-		"url": "https://github.com/aureooms/js-algo.git",
+		"url": "https://github.com/aureooms/js-bst.git",
 		"type": "git"
 	},
 	"keywords": [
@@ -14,7 +14,10 @@
 		"algorithm",
 		"adt",
 		"complexity",
-		"template"
+		"bst",
+		"binary search tree",
+		"splay tree",
+		"red-black tree"
 	],
 	"scripts": {
 		"build": "./node_modules/.bin/aureooms-node-package-build",
@@ -32,7 +35,7 @@
 		"aureooms-js-sort": "^1.0.0"
 	},
 	"bugs": {
-		"url": "https://github.com/aureooms/js-algo/issues"
+		"url": "https://github.com/aureooms/js-bst/issues"
 	},
 	"dependencies": {},
 	"license": "AGPL-3.0"

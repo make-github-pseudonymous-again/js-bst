@@ -1,10 +1,10 @@
 {
-	"ns": "algo",
+	"ns": "bst",
 	"code": {
 		"main": [
 			"js",
 			"dist",
-			"algo.js"
+			"bst.js"
 		],
 		"test": [
 			"test",

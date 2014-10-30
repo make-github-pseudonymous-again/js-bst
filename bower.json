@@ -1,10 +1,10 @@
 {
-	"homepage": "https://aureooms.github.io/js-algo",
-	"name": "aureooms-js-algo",
+	"homepage": "https://aureooms.github.io/js-bst",
+	"name": "aureooms-js-bst",
 	"license": "AGPL-3.0",
-	"description": "playground for algorithmic code bricks in JavaScript",
+	"description": "binary search tree code bricks in JavaScript",
 	"version": "1.0.0",
-	"main": "js/dist/algo.js",
+	"main": "js/dist/bst.js",
 	"ignore": [
 		"js/index.js",
 		"js/src",

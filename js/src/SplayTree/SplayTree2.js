@@ -1,5 +1,5 @@
 
-var splay_tree_3_t = function(diff){
+var __SplayTree2__ = function(diff){
 
 	var insert = function(pt, v){
 		var w = diff(v, pt[2]) > 0 | 0;
@@ -9,45 +9,46 @@ var splay_tree_3_t = function(diff){
 
 	var splay = function(el, v){
 
-		var l, r, t, y, x, d;
-		l = r = x = [null, null, undefined];
-		t = el;
-		while (true) {
-			d = diff(v, t[2]);
-			if (d < 0) {
-				if (!t[0]) break;
-				if (diff(v, t[0][2]) < 0) {
-					y = t[0];
-					t[0] = y[1];
-					y[1] = t;
-					t = y;
-					if (!t[0]) break;
-				}
-				r[0] = t;
-				r = t;
-				t = t[0];
-			}
-			else if (d > 0) {
-				if (!t[1]) break;
-				if (diff(v, t[1][2]) > 0) {
-					y = t[1];
-					t[1] = y[0];
-					y[0] = t;
-					t = y;
-					if (!t[1]) break;
-				}
-				l[1] = t;
-				l = t;
-				t = t[1];
-			}
-			else break;
-		}
-		l[1] = t[0];
-		r[0] = t[1];
-		t[0] = x[1];
-		t[1] = x[0];
+		var turn = [], path = [], pt = el, f, d, w, i, a, zoz, zoz1, zoz2, pox, p, g;
 
-		return [diff(v, t[2]) === 0, t];
+		while(f === undefined){
+			d = diff(v, pt[2]);
+			if(d === 0) f = true;
+			else {
+				w = d > 0 | 0;
+				if(pt[w] === null) f = false;
+				else{
+					path.push(pt);
+					turn.push(w);
+					pt = pt[w];
+				}
+			}
+		}
+
+		i = turn.length - 1;
+		a = [pt, null];
+		for (; i > 0; i -= 2) {
+			zoz2 = turn[i];
+			zoz1 = turn[i-1];
+			pox = zoz1 === zoz2 | 0;
+			g = path[i-1];
+			p = path[i];
+			a[1] = p;
+
+			g[zoz1] = a[pox][1 - zoz1];
+			a[pox][1 - zoz1] = g;
+
+			p[zoz2] = pt[1 - zoz2];
+			pt[1 - zoz2] = p;
+		}
+
+		if (i === 0) {
+			zoz = turn[0];
+			el[zoz] = pt[1 - zoz];
+			pt[1 - zoz] = el;
+		}
+
+		return [f, pt];
 	};
 
 	var remove = function(el, v){
@@ -96,4 +97,4 @@ var splay_tree_3_t = function(diff){
 
 };
 
-exports.splay_tree_3_t = splay_tree_3_t;
+exports.__SplayTree2__ = __SplayTree2__;

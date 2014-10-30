@@ -1,5 +1,5 @@
 
-var splay_tree_5_t = function(diff){
+var __SplayTree5__ = function(diff){
 
 	var node = function(v){
 		this.l = this.r = null;
@@ -61,7 +61,7 @@ var splay_tree_5_t = function(diff){
 
 	splay_tree.prototype.remove = function(v){
 		if(this.pt === null) return;
-		
+
 		var d = this.splay(v);
 		if (d !== 0) return;
 
@@ -110,4 +110,4 @@ var splay_tree_5_t = function(diff){
 
 };
 
-exports.splay_tree_5_t = splay_tree_5_t;
+exports.__SplayTree5__ = __SplayTree5__;

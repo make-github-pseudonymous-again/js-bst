@@ -166,11 +166,11 @@ all = function ( BSTname, BST, diffname, diff, n ) {
 itertools.product( [
 
 [
-	["splay_tree_t", algo.splay_tree_t],
-	["splay_tree_2_t", algo.splay_tree_2_t],
-	["splay_tree_3_t", algo.splay_tree_3_t],
-	["splay_tree_4_t", algo.splay_tree_4_t],
-	["splay_tree_5_t", algo.splay_tree_5_t],
+	["__SplayTree1__", bst.__SplayTree1__],
+	["__SplayTree1__", bst.__SplayTree2__],
+	["__SplayTree1__", bst.__SplayTree3__],
+	["__SplayTree1__", bst.__SplayTree4__],
+	["__SplayTree1__", bst.__SplayTree5__],
 ],
 
 [

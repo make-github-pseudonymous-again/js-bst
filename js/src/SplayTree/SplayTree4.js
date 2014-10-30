@@ -1,5 +1,5 @@
 
-var splay_tree_4_t = function(diff){
+var __SplayTree4__ = function(diff){
 
 	var node = function(v){
 		this.l = this.r = null;
@@ -116,4 +116,4 @@ var splay_tree_4_t = function(diff){
 
 };
 
-exports.splay_tree_4_t = splay_tree_4_t;
+exports.__SplayTree4__ = __SplayTree4__;
