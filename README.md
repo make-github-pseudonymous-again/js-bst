@@ -4,8 +4,6 @@
 
 binary search tree code bricks in JavaScript
 
-forked from [js-algo](https://github.com/aureooms/js-algo)
-
 [![NPM license](http://img.shields.io/npm/l/aureooms-js-bst.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-bst/master/LICENSE)
 [![NPM version](http://img.shields.io/npm/v/aureooms-js-bst.svg?style=flat)](https://www.npmjs.org/package/aureooms-js-bst)
 [![Bower version](http://img.shields.io/bower/v/aureooms-js-bst.svg?style=flat)](http://bower.io/search/?q=aureooms-js-bst)
@@ -16,3 +14,5 @@ forked from [js-algo](https://github.com/aureooms/js-algo)
 [![Code Climate](http://img.shields.io/codeclimate/github/aureooms/js-bst.svg?style=flat)](https://codeclimate.com/github/aureooms/js-bst)
 [![NPM downloads per month](http://img.shields.io/npm/dm/aureooms-js-bst.svg?style=flat)](https://www.npmjs.org/package/aureooms-js-bst)
 [![GitHub issues](http://img.shields.io/github/issues/aureooms/js-bst.svg?style=flat)](https://github.com/aureooms/js-bst/issues)
+
+***( forked from [js-algo](https://github.com/aureooms/js-algo) )***
