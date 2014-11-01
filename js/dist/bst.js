@@ -15,19 +15,20 @@ var AVLTree1 = function ( compare ) {
 
 };
 
-AVLTree1.Node = function ( value, left, right ) {
+AVLTree1.Node = function ( balancingfactor, parent, left, right, value ) {
 
 	this.balancingfactor = 0;
 
-	this.value = value;
+	this.parent = parent;
 
 	this.left = left;
 
 	this.right = right;
 
+	this.value = value;
+
 };
 
-/* js/src/RBTree */
 /* js/src/SplayTree */
 /* js/src/SplayTree/SplayTree1.js */
 
@@ -639,6 +640,323 @@ var __SplayTree5__ = function(diff){
 exports.__SplayTree5__ = __SplayTree5__;
 
 /* js/src/UnbalancedBST */
+/* js/src/UnbalancedBST/UnbalancedBST1.js */
+
+
+var UnbalancedBST1 = function ( compare ) {
+	this.compare = compare;
+	this.root = null;
+};
+
+UnbalancedBST1.Node = function ( value ) {
+	this.value = value;
+	this.left = null;
+	this.right = null;
+};
+
+UnbalancedBST1.prototype.insert = function ( value ) {
+
+	if ( this.root === null ) {
+		this.root = new UnbalancedBST1.Node( value );
+	}
+
+	else {
+		this.root.insert( this.compare, value );
+	}
+
+	return this;
+
+};
+
+UnbalancedBST1.Node.prototype.insert = function ( compare, value ) {
+
+	if ( compare( value, this.value ) <= 0 ) {
+
+		if ( this.left !== null ) {
+			this.left.insert( compare, value );
+		}
+
+		else {
+			this.left = new UnbalancedBST1.Node( value );
+		}
+
+	}
+
+	else {
+
+		if ( this.right !== null ) {
+			this.right.insert( compare, value );
+		}
+
+		else {
+			this.right = new UnbalancedBST1.Node( value );
+		}
+
+	}
+
+	return this;
+
+};
+
+UnbalancedBST1.prototype.remove = function ( value ) {
+
+	var it, prev;
+
+	if ( this.root !== null ) {
+
+		if ( this.compare( value, this.root.value ) === 0 ) {
+
+			it = this.root.left;
+
+			if ( it === null ) {
+				this.root = this.root.right;
+			}
+
+			else{
+
+				prev = this.root;
+
+				while ( it.right !== null ) {
+					prev = it;
+					it = it.right;
+				}
+
+				// TODO can check this before while loop
+
+				if ( prev === this.root ) {
+					this.root.left.right = this.root.right;
+					this.root = this.root.left;
+				}
+
+				else{
+					prev.right = it.left;
+					it.left = this.root.left;
+					it.right = this.root.right;
+					this.root = it;
+				}
+
+			}
+
+		}
+
+		else {
+			this.root.remove( this.compare, value );
+		}
+
+	}
+
+	return this;
+
+};
+
+UnbalancedBST1.Node.prototype.remove = function ( compare, value ) {
+
+	var it, prev;
+
+	if ( compare( value, this.value ) <= 0 ) {
+
+		if ( this.left !== null ) {
+
+			if ( compare( value, this.left.value ) === 0 ) {
+
+				it = this.left.left;
+
+				if ( it === null ) {
+					this.left = this.left.right;
+				}
+
+				else {
+
+					prev = this.left;
+
+					while ( it.right !== null ) {
+						prev = it;
+						it = it.right;
+					}
+
+					if ( prev === this.left ) {
+						this.left.left.right = this.left.right;
+						this.left = this.left.left;
+					}
+
+					else {
+						prev.right = it.left;
+						it.left = this.left.left;
+						it.right = this.left.right;
+						this.left = it;
+					}
+
+				}
+
+			}
+			else {
+				this.left.remove( compare, value );
+			}
+		}
+
+	}
+
+	else {
+
+		if ( this.right !== null ) {
+
+			if ( compare( value, this.right.value ) === 0 ) {
+
+				it = this.right.left;
+
+				if ( it === null ) {
+					this.right = this.right.right;
+				}
+
+				else {
+
+					prev = this.right;
+
+					while ( it.right !== null ) {
+						prev = it;
+						it = it.right;
+					}
+
+					if ( prev === this.right ) {
+						this.right.left.right = this.right.right;
+						this.right = this.right.left;
+					}
+
+					else {
+						prev.right = it.left;
+						it.right = this.right.right;
+						it.left = this.right.left;
+						this.right = it;
+					}
+
+				}
+			}
+
+			else {
+				this.right.remove( compare, value );
+			}
+		}
+
+	}
+
+	return this;
+};
+
+UnbalancedBST1.prototype.find = function ( value ) {
+
+	if ( this.root === null ) {
+		return [false, null];
+	}
+
+	return this.root.find( this.compare, value );
+
+};
+
+UnbalancedBST1.Node.prototype.find = function ( compare, value ) {
+
+	var d;
+
+	d = compare( value, this.value );
+
+	if ( d === 0 ) {
+		return [true, this.value];
+	}
+
+	else if ( d < 0 ) {
+
+		if ( this.left === null ) {
+			return [false, this.value];
+		}
+
+		return this.left.find( compare, value );
+
+	}
+
+	else {
+
+		if ( this.right === null ) {
+			return [false, this.value];
+		}
+
+		return this.right.find( compare, value );
+	}
+
+};
+
+UnbalancedBST1.prototype.findleft = function ( value ) {
+
+	if ( this.root === null ) {
+		return undefined;
+	}
+
+	return this.root.findleft( this.compare, value, undefined );
+
+};
+
+UnbalancedBST1.Node.prototype.findleft = function ( compare, value, found ) {
+
+	if ( compare( value, this.value ) <= 0 ) {
+
+		if ( this.left === null ) {
+			return found;
+		}
+
+		return this.left.findleft( compare, value, found );
+
+	}
+
+	else{
+
+		if ( this.right === null ) {
+			return found;
+		}
+
+		return this.right.findleft( compare, value, this.value );
+	}
+
+};
+
+
+UnbalancedBST1.prototype.in_order_traversal = function ( callback ) {
+
+	if ( this.root !== null ) {
+		this.root.in_order_traversal( callback );
+	}
+
+};
+
+
+UnbalancedBST1.Node.prototype.in_order_traversal = function ( callback ) {
+
+	if ( this.left !== null ) {
+		this.left.in_order_traversal( callback );
+	}
+
+	callback( this.value );
+
+	if ( this.right !== null ) {
+		this.right.in_order_traversal( callback );
+	}
+
+};
+
+
+UnbalancedBST1.Node.prototype.max = function () {
+
+	if ( this.right === null ) {
+		return this;
+	}
+
+	else {
+		return this.right.max();
+	}
+
+};
+
+
+
+exports.UnbalancedBST1 = UnbalancedBST1;
+
 /* js/src/fundamentals */
 /* js/src/fundamentals/avlbalance.js */
 
@@ -662,13 +980,44 @@ var avlbalance = function ( P ) {
 			N = P.left;
 
 			if ( N.balancefactor === -1 ) {
+
 				// The "Left Right Case"
+				//
+				//     (2)  P
+				//         / \
+				//  (-1)  N   D
+				//       / \
+				//      A   4
+				//         / \
+				//        B   C
+				//
 				// Reduce to "Left Left Case"
-				leftrotate( N );
+
+				P.left = leftrotatewithparent( N );
+
 			}
 
 			// Left Left Case
-			rightrotate( P );
+			//
+			//     (2)  P
+			//         / \
+			// (1/0)  4   D
+			//       / \
+			//      3   C
+			//     / \
+			//    A   B
+
+
+			// PROBLEM : DOES NOT KNOW WHICH OF LEFT OR RIGHT CHILD P IS
+			P.parent.leftorright = rightrotatewithparent( P );
+
+			// Balanced
+			//
+			//  (-1/0)  4
+			//         / \
+			//        3   5
+			//       / \ / \
+			//
 
 			break;
 
@@ -747,7 +1096,64 @@ var insert = function ( compare, A, B ) {
 
 exports.insert = insert;
 
+/* js/src/fundamentals/insertwithparent.js */
+
+var insertwithparent = function ( compare, A, B ) {
+
+	var node;
+
+	node = null;
+
+	while ( true ) {
+
+		if ( compare( B, A ) <= 0 ) {
+
+			node = A.left;
+
+			if ( node === null ) {
+				A.left = B;
+				break;
+			}
+
+			A = node;
+
+		}
+
+		else {
+
+			node = A.right;
+
+			if ( node === null ) {
+				A.right = B;
+				break;
+			}
+
+			A = node;
+
+		}
+
+	}
+
+	B.parent = A;
+
+	return B;
+
+};
+
+exports.insertwithparent = insertwithparent;
+
 /* js/src/fundamentals/leftrotate.js */
+
+
+/**
+ * -> https://en.wikipedia.org/wiki/Tree_rotation
+ *
+ *      A                B
+ *     / \              / \
+ *    a   B     ->     A   c
+ *       / \          / \
+ *      b   c        a   b
+ */
 
 var leftrotate = function ( A ) {
 
@@ -764,7 +1170,50 @@ var leftrotate = function ( A ) {
 
 exports.leftrotate = leftrotate;
 
+/* js/src/fundamentals/leftrotatewithparent.js */
+
+
+/**
+ * -> https://en.wikipedia.org/wiki/Tree_rotation
+ *
+ *      A                B
+ *     / \              / \
+ *    a   B     ->     A   c
+ *       / \          / \
+ *      b   c        a   b
+ */
+
+var leftrotatewithparent = function ( A ) {
+
+	var B;
+
+	B = A.right;
+
+	A.right = B.left;
+	B.left = A;
+
+	B.parent = A.parent;
+	A.right.parent = A;
+	A.parent = B;
+
+	return B;
+
+};
+
+exports.leftrotatewithparent = leftrotatewithparent;
+
 /* js/src/fundamentals/rightrotate.js */
+
+
+/**
+ * -> https://en.wikipedia.org/wiki/Tree_rotation
+ *
+ *      B                A
+ *     / \              / \
+ *    A   c     ->     a   B
+ *   / \                  / \
+ *  a   b                b   c
+ */
 
 var rightrotate = function ( B ) {
 
@@ -780,5 +1229,37 @@ var rightrotate = function ( B ) {
 };
 
 exports.rightrotate = rightrotate;
+
+/* js/src/fundamentals/rightrotatewithparent.js */
+
+
+/**
+ * -> https://en.wikipedia.org/wiki/Tree_rotation
+ *
+ *      B                A
+ *     / \              / \
+ *    A   c     ->     a   B
+ *   / \                  / \
+ *  a   b                b   c
+ */
+
+var rightrotatewithparent = function ( B ) {
+
+	var A;
+
+	A = B.left;
+
+	B.left = A.right;
+	A.right = B;
+
+	A.parent = B.parent;
+	B.left.parent = B;
+	B.parent = A;
+
+	return A;
+
+};
+
+exports.rightrotatewithparent = rightrotatewithparent;
 
 })(typeof exports === 'undefined' ? this['bst'] = {} : exports);

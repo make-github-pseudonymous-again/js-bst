@@ -171,6 +171,11 @@ itertools.product( [
 	["__SplayTree3__", bst.__SplayTree3__],
 	["__SplayTree4__", bst.__SplayTree4__],
 	["__SplayTree5__", bst.__SplayTree5__],
+	["UnbalancedBST1", function ( compare ) {
+		return function ( ) {
+			return new bst.UnbalancedBST1( compare );
+		}
+	}],
 ],
 
 [

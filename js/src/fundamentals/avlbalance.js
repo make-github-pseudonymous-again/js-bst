@@ -19,13 +19,44 @@ var avlbalance = function ( P ) {
 			N = P.left;
 
 			if ( N.balancefactor === -1 ) {
+
 				// The "Left Right Case"
+				//
+				//     (2)  P
+				//         / \
+				//  (-1)  N   D
+				//       / \
+				//      A   4
+				//         / \
+				//        B   C
+				//
 				// Reduce to "Left Left Case"
-				leftrotate( N );
+
+				P.left = leftrotatewithparent( N );
+
 			}
 
 			// Left Left Case
-			rightrotate( P );
+			//
+			//     (2)  P
+			//         / \
+			// (1/0)  4   D
+			//       / \
+			//      3   C
+			//     / \
+			//    A   B
+
+
+			// PROBLEM : DOES NOT KNOW WHICH OF LEFT OR RIGHT CHILD P IS
+			P.parent.leftorright = rightrotatewithparent( P );
+
+			// Balanced
+			//
+			//  (-1/0)  4
+			//         / \
+			//        3   5
+			//       / \ / \
+			//
 
 			break;
 

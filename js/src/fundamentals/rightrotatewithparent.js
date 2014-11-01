@@ -10,7 +10,7 @@
  *  a   b                b   c
  */
 
-var rightrotate = function ( B ) {
+var rightrotatewithparent = function ( B ) {
 
 	var A;
 
@@ -19,8 +19,12 @@ var rightrotate = function ( B ) {
 	B.left = A.right;
 	A.right = B;
 
+	A.parent = B.parent;
+	B.left.parent = B;
+	B.parent = A;
+
 	return A;
 
 };
 
-exports.rightrotate = rightrotate;
+exports.rightrotatewithparent = rightrotatewithparent;

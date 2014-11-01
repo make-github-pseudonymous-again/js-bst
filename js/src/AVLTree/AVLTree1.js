@@ -8,14 +8,16 @@ var AVLTree1 = function ( compare ) {
 
 };
 
-AVLTree1.Node = function ( value, left, right ) {
+AVLTree1.Node = function ( balancingfactor, parent, left, right, value ) {
 
 	this.balancingfactor = 0;
 
-	this.value = value;
+	this.parent = parent;
 
 	this.left = left;
 
 	this.right = right;
+
+	this.value = value;
 
 };

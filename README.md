@@ -15,4 +15,8 @@ binary search tree code bricks in JavaScript
 [![NPM downloads per month](http://img.shields.io/npm/dm/aureooms-js-bst.svg?style=flat)](https://www.npmjs.org/package/aureooms-js-bst)
 [![GitHub issues](http://img.shields.io/github/issues/aureooms/js-bst.svg?style=flat)](https://github.com/aureooms/js-bst/issues)
 
+reference :
+
+  - https://www.youtube.com/watch?v=FNeL18KsWPc
+
 ***( forked from [js-algo](https://github.com/aureooms/js-algo) )***
