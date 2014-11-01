@@ -167,10 +167,10 @@ itertools.product( [
 
 [
 	["__SplayTree1__", bst.__SplayTree1__],
-	["__SplayTree1__", bst.__SplayTree2__],
-	["__SplayTree1__", bst.__SplayTree3__],
-	["__SplayTree1__", bst.__SplayTree4__],
-	["__SplayTree1__", bst.__SplayTree5__],
+	["__SplayTree2__", bst.__SplayTree2__],
+	["__SplayTree3__", bst.__SplayTree3__],
+	["__SplayTree4__", bst.__SplayTree4__],
+	["__SplayTree5__", bst.__SplayTree5__],
 ],
 
 [
