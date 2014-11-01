@@ -3,6 +3,31 @@
 	'use strict';
 
 
+/* js/src/AVLTree */
+/* js/src/AVLTree/AVLTree1.js */
+
+
+var AVLTree1 = function ( compare ) {
+
+	this.compare = compare;
+
+	this.root = null;
+
+};
+
+AVLTree1.Node = function ( value, left, right ) {
+
+	this.balancingfactor = 0;
+
+	this.value = value;
+
+	this.left = left;
+
+	this.right = right;
+
+};
+
+/* js/src/RBTree */
 /* js/src/SplayTree */
 /* js/src/SplayTree/SplayTree1.js */
 
@@ -612,5 +637,148 @@ var __SplayTree5__ = function(diff){
 };
 
 exports.__SplayTree5__ = __SplayTree5__;
+
+/* js/src/UnbalancedBST */
+/* js/src/fundamentals */
+/* js/src/fundamentals/avlbalance.js */
+
+/**
+ * -> https://en.wikipedia.org/wiki/AVL_tree
+ */
+
+var avlbalance = function ( P ) {
+
+	var N;
+
+	// Possibly up to the root
+
+	do {
+
+		if ( P.balancefactor === 2 ) {
+
+			// The left column
+			// N === P.left, the child whose height increases by 1.
+
+			N = P.left;
+
+			if ( N.balancefactor === -1 ) {
+				// The "Left Right Case"
+				// Reduce to "Left Left Case"
+				leftrotate( N );
+			}
+
+			// Left Left Case
+			rightrotate( P );
+
+			break;
+
+		} else if ( P.balancefactor === -2 ) {
+
+			// The right column
+			// N == P.right, the child whose height increases by 1.
+
+			N = P.right;
+
+			if ( N.balancefactor === 1 ) {
+				// The "Right Left Case"
+				// Reduce to "Right Right Case"
+				rightrotate( N );
+			}
+			// Right Right Case
+			leftrotate( P );
+
+			break;
+
+		} else if ( P.balancefactor === 0) {
+			break;
+		}
+
+		// Keep P.balancefactor == ±1.
+		// height( N ) increases by 1.
+		N = P;
+		P = N.parent;
+
+	} while ( P !== null );
+};
+
+exports.avlbalance = avlbalance;
+
+/* js/src/fundamentals/insert.js */
+
+var insert = function ( compare, A, B ) {
+
+	var node;
+
+	node = null;
+
+	while ( true ) {
+
+		if ( compare( B, A ) <= 0 ) {
+
+			node = A.left;
+
+			if ( node === null ) {
+				A.left = B;
+				break;
+			}
+
+			A = node;
+
+		}
+
+		else {
+
+			node = A.right;
+
+			if ( node === null ) {
+				A.right = B;
+				break;
+			}
+
+			A = node;
+
+		}
+
+	}
+
+	return B;
+
+};
+
+exports.insert = insert;
+
+/* js/src/fundamentals/leftrotate.js */
+
+var leftrotate = function ( A ) {
+
+	var B;
+
+	B = A.right;
+
+	A.right = B.left;
+	B.left = A;
+
+	return B;
+
+};
+
+exports.leftrotate = leftrotate;
+
+/* js/src/fundamentals/rightrotate.js */
+
+var rightrotate = function ( B ) {
+
+	var A;
+
+	A = B.left;
+
+	B.left = A.right;
+	A.right = B;
+
+	return A;
+
+};
+
+exports.rightrotate = rightrotate;
 
 })(typeof exports === 'undefined' ? this['bst'] = {} : exports);
