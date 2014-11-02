@@ -656,43 +656,7 @@ UnbalancedBST1.Node = function ( value ) {
 
 UnbalancedBST1.prototype.insert = function ( value ) {
 
-	if ( this.root === null ) {
-		this.root = new UnbalancedBST1.Node( value );
-	}
-
-	else {
-		this.root.insert( this.compare, value );
-	}
-
-	return this;
-
-};
-
-UnbalancedBST1.Node.prototype.insert = function ( compare, value ) {
-
-	if ( compare( value, this.value ) <= 0 ) {
-
-		if ( this.left !== null ) {
-			this.left.insert( compare, value );
-		}
-
-		else {
-			this.left = new UnbalancedBST1.Node( value );
-		}
-
-	}
-
-	else {
-
-		if ( this.right !== null ) {
-			this.right.insert( compare, value );
-		}
-
-		else {
-			this.right = new UnbalancedBST1.Node( value );
-		}
-
-	}
+	treeinsert( this.compare, this, new UnbalancedBST1.Node( value ) );
 
 	return this;
 
@@ -700,146 +664,14 @@ UnbalancedBST1.Node.prototype.insert = function ( compare, value ) {
 
 UnbalancedBST1.prototype.remove = function ( value ) {
 
-	var it, prev;
-
 	if ( this.root !== null ) {
 
-		if ( this.compare( value, this.root.value ) === 0 ) {
-
-			it = this.root.left;
-
-			if ( it === null ) {
-				this.root = this.root.right;
-			}
-
-			else{
-
-				prev = this.root;
-
-				while ( it.right !== null ) {
-					prev = it;
-					it = it.right;
-				}
-
-				// TODO can check this before while loop
-
-				if ( prev === this.root ) {
-					this.root.left.right = this.root.right;
-					this.root = this.root.left;
-				}
-
-				else{
-					prev.right = it.left;
-					it.left = this.root.left;
-					it.right = this.root.right;
-					this.root = it;
-				}
-
-			}
-
-		}
-
-		else {
-			this.root.remove( this.compare, value );
-		}
+		this.root = remove( this.compare, this.root, value );
 
 	}
 
 	return this;
 
-};
-
-UnbalancedBST1.Node.prototype.remove = function ( compare, value ) {
-
-	var it, prev;
-
-	if ( compare( value, this.value ) <= 0 ) {
-
-		if ( this.left !== null ) {
-
-			if ( compare( value, this.left.value ) === 0 ) {
-
-				it = this.left.left;
-
-				if ( it === null ) {
-					this.left = this.left.right;
-				}
-
-				else {
-
-					prev = this.left;
-
-					while ( it.right !== null ) {
-						prev = it;
-						it = it.right;
-					}
-
-					if ( prev === this.left ) {
-						this.left.left.right = this.left.right;
-						this.left = this.left.left;
-					}
-
-					else {
-						prev.right = it.left;
-						it.left = this.left.left;
-						it.right = this.left.right;
-						this.left = it;
-					}
-
-				}
-
-			}
-			else {
-				this.left.remove( compare, value );
-			}
-		}
-
-	}
-
-	else {
-
-		if ( this.right !== null ) {
-
-			if ( compare( value, this.right.value ) === 0 ) {
-
-				it = this.right.left;
-
-				if ( it === null ) {
-					this.right = this.right.right;
-				}
-
-				else {
-
-					prev = this.right;
-
-					while ( it.right !== null ) {
-						prev = it;
-						it = it.right;
-					}
-
-					if ( prev === this.right ) {
-						this.right.left.right = this.right.right;
-						this.right = this.right.left;
-					}
-
-					else {
-						prev.right = it.left;
-						it.right = this.right.right;
-						it.left = this.right.left;
-						this.right = it;
-					}
-
-				}
-			}
-
-			else {
-				this.right.remove( compare, value );
-			}
-		}
-
-	}
-
-	return this;
 };
 
 UnbalancedBST1.prototype.find = function ( value ) {
@@ -848,71 +680,7 @@ UnbalancedBST1.prototype.find = function ( value ) {
 		return [false, null];
 	}
 
-	return this.root.find( this.compare, value );
-
-};
-
-UnbalancedBST1.Node.prototype.find = function ( compare, value ) {
-
-	var d;
-
-	d = compare( value, this.value );
-
-	if ( d === 0 ) {
-		return [true, this.value];
-	}
-
-	else if ( d < 0 ) {
-
-		if ( this.left === null ) {
-			return [false, this.value];
-		}
-
-		return this.left.find( compare, value );
-
-	}
-
-	else {
-
-		if ( this.right === null ) {
-			return [false, this.value];
-		}
-
-		return this.right.find( compare, value );
-	}
-
-};
-
-UnbalancedBST1.prototype.findleft = function ( value ) {
-
-	if ( this.root === null ) {
-		return undefined;
-	}
-
-	return this.root.findleft( this.compare, value, undefined );
-
-};
-
-UnbalancedBST1.Node.prototype.findleft = function ( compare, value, found ) {
-
-	if ( compare( value, this.value ) <= 0 ) {
-
-		if ( this.left === null ) {
-			return found;
-		}
-
-		return this.left.findleft( compare, value, found );
-
-	}
-
-	else{
-
-		if ( this.right === null ) {
-			return found;
-		}
-
-		return this.right.findleft( compare, value, this.value );
-	}
+	return predecessor( this.compare, this.root, value, null );
 
 };
 
@@ -920,35 +688,7 @@ UnbalancedBST1.Node.prototype.findleft = function ( compare, value, found ) {
 UnbalancedBST1.prototype.in_order_traversal = function ( callback ) {
 
 	if ( this.root !== null ) {
-		this.root.in_order_traversal( callback );
-	}
-
-};
-
-
-UnbalancedBST1.Node.prototype.in_order_traversal = function ( callback ) {
-
-	if ( this.left !== null ) {
-		this.left.in_order_traversal( callback );
-	}
-
-	callback( this.value );
-
-	if ( this.right !== null ) {
-		this.right.in_order_traversal( callback );
-	}
-
-};
-
-
-UnbalancedBST1.Node.prototype.max = function () {
-
-	if ( this.right === null ) {
-		return this;
-	}
-
-	else {
-		return this.right.max();
+		inordertraversal( callback, this.root );
 	}
 
 };
@@ -1052,17 +792,72 @@ var avlbalance = function ( P ) {
 
 exports.avlbalance = avlbalance;
 
+/* js/src/fundamentals/find.js */
+
+
+var find = function ( compare, node, value ) {
+
+	var d;
+
+	// scan for first node whose
+	// value equals parameter value
+
+	while ( true ) {
+
+		d = compare( value, node.value );
+
+		if ( d === 0 ) {
+			return node;
+		}
+
+		else if ( d < 0 ) {
+			node = node.left;
+		}
+
+		else {
+			node = node.right;
+		}
+
+		if ( node === null ) {
+			return null;
+		}
+
+	}
+
+};
+
+exports.find = find;
+
+/* js/src/fundamentals/inordertraversal.js */
+
+var inordertraversal = function ( callback, node ) {
+
+	if ( node.left !== null ) {
+		inordertraversal( callback, node.left );
+	}
+
+	callback( node.value );
+
+	if ( node.right !== null ) {
+		inordertraversal( callback, node.right );
+	}
+
+};
+
+exports.inordertraversal = inordertraversal;
+
 /* js/src/fundamentals/insert.js */
 
 var insert = function ( compare, A, B ) {
 
-	var node;
+	var node, value;
 
 	node = null;
+	value = B.value;
 
 	while ( true ) {
 
-		if ( compare( B, A ) <= 0 ) {
+		if ( compare( value, A.value ) <= 0 ) {
 
 			node = A.left;
 
@@ -1202,6 +997,239 @@ var leftrotatewithparent = function ( A ) {
 
 exports.leftrotatewithparent = leftrotatewithparent;
 
+/* js/src/fundamentals/max.js */
+
+
+
+var max = function ( node ) {
+
+	if ( node.right === null ) {
+		return node;
+	}
+
+	return max( node.right );
+
+};
+
+exports.max = max;
+
+/* js/src/fundamentals/min.js */
+
+
+var min = function ( node ) {
+
+	if ( node.left === null ) {
+		return node;
+	}
+
+	return min( node.left );
+
+};
+
+exports.min = min;
+
+/* js/src/fundamentals/predecessor.js */
+
+/**
+ * Finds the greatest value in the binary search tree
+ * which is smaller than parameter value.
+ */
+
+var predecessor = function ( compare, node, value, pred ) {
+
+	var d;
+
+	d = compare( value, node.value );
+
+	if ( d === 0 ) {
+		return [true, node.value];
+	}
+
+	else if ( d < 0 ) {
+
+		if ( node.left === null ) {
+			return [false, pred];
+		}
+
+		return predecessor( compare, node.left, value, pred );
+
+	}
+
+	else {
+
+		if ( node.right === null ) {
+			return [false, node.value];
+		}
+
+		return predecessor( compare, node.right, value, node.value );
+	}
+
+};
+
+exports.predecessor = predecessor;
+
+/* js/src/fundamentals/range.js */
+
+
+var range = function ( compare, node, value, iterators ) {
+
+	var d;
+
+	// scan for first node whose
+	// value equals parameter value
+
+	while ( true ) {
+
+		d = compare( value, node.value );
+
+		if ( d === 0 ) {
+			break;
+		}
+
+		else if ( d < 0 ) {
+			node = node.left;
+		}
+
+		else {
+			node = node.right;
+		}
+
+		if ( node === null ) {
+			return iterators;
+		}
+
+	}
+
+	// enumerate all nodes whose value
+	// equals parameter value
+
+	do {
+
+		iterators.push( node );
+
+		node = node.left;
+
+	} while ( node !== null && compare( value, node.value ) === 0 );
+
+	return iterators;
+
+};
+
+exports.range = range;
+
+/* js/src/fundamentals/remove.js */
+
+
+var remove = function ( compare, node, value ) {
+
+	var left, right, rightest, delta;
+
+	delta = compare( value, node.value );
+
+	if ( delta === 0 ) {
+
+		left = node.left;
+		right = node.right;
+
+		if ( left === null ) {
+			return right;
+		}
+
+		else if ( right === null ) {
+			return left;
+		}
+
+		else {
+
+			rightest = left;
+
+			while ( rightest.right !== null ) {
+				rightest = rightest.right;
+			}
+
+			rightest.right = right;
+
+			return left;
+
+		}
+
+	}
+
+	else if ( delta < 0 ) {
+
+		if ( node.left !== null ) {
+			node.left = remove( compare, node.left, value );
+		}
+
+		return node;
+
+	}
+
+	else {
+
+		if ( node.right !== null ) {
+			node.right = remove( compare, node.right, value );
+		}
+
+		return node;
+
+	}
+
+};
+
+exports.remove = remove;
+
+/* js/src/fundamentals/replace.js */
+
+var replace = function ( compare, A, B ) {
+
+	var delta, node, value;
+
+	node = null;
+	value = B.value;
+
+	while ( true ) {
+
+		delta = compare( value, A.value );
+
+		if ( delta === 0 ) {
+			A.value = value;
+			return A;
+		}
+
+		else if ( delta < 0 ) {
+
+			node = A.left;
+
+			if ( node === null ) {
+				A.left = B;
+				return B;
+			}
+
+			A = node;
+
+		}
+
+		else {
+
+			node = A.right;
+
+			if ( node === null ) {
+				A.right = B;
+				return B;
+			}
+
+			A = node;
+
+		}
+
+	}
+
+
+};
+
+exports.replace = replace;
+
 /* js/src/fundamentals/rightrotate.js */
 
 
@@ -1261,5 +1289,61 @@ var rightrotatewithparent = function ( B ) {
 };
 
 exports.rightrotatewithparent = rightrotatewithparent;
+
+/* js/src/fundamentals/successor.js */
+
+/**
+ * Finds the smallest value in the binary search tree
+ * which is greater than parameter value.
+ */
+
+var successor = function ( compare, node, value, succ ) {
+
+	var d;
+
+	d = compare( value, node.value );
+
+	if ( d === 0 ) {
+		return [true, node.value];
+	}
+
+	else if ( d < 0 ) {
+
+		if ( node.left === null ) {
+			return [false, node.value];
+		}
+
+		return successor( compare, node.left, value, node.value );
+
+	}
+
+	else {
+
+		if ( node.right === null ) {
+			return [false, succ];
+		}
+
+		return successor( compare, node.right, value, succ );
+	}
+
+};
+
+exports.successor = successor;
+
+/* js/src/fundamentals/treeinsert.js */
+
+var treeinsert = function ( compare, tree, node ) {
+
+	if ( tree.root === null ) {
+		tree.root = node;
+	}
+
+	else {
+		insert( compare, tree.root, node );
+	}
+
+};
+
+exports.treeinsert = treeinsert;
 
 })(typeof exports === 'undefined' ? this['bst'] = {} : exports);

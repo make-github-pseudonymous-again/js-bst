@@ -1,20 +1,27 @@
 
-var insert = function ( compare, A, B ) {
+var replace = function ( compare, A, B ) {
 
-	var node, value;
+	var delta, node, value;
 
 	node = null;
 	value = B.value;
 
 	while ( true ) {
 
-		if ( compare( value, A.value ) <= 0 ) {
+		delta = compare( value, A.value );
+
+		if ( delta === 0 ) {
+			A.value = value;
+			return A;
+		}
+
+		else if ( delta < 0 ) {
 
 			node = A.left;
 
 			if ( node === null ) {
 				A.left = B;
-				break;
+				return B;
 			}
 
 			A = node;
@@ -27,7 +34,7 @@ var insert = function ( compare, A, B ) {
 
 			if ( node === null ) {
 				A.right = B;
-				break;
+				return B;
 			}
 
 			A = node;
@@ -36,8 +43,7 @@ var insert = function ( compare, A, B ) {
 
 	}
 
-	return B;
 
 };
 
-exports.insert = insert;
+exports.replace = replace;
