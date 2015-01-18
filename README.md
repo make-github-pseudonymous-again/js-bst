@@ -18,6 +18,6 @@ binary search tree code bricks in JavaScript
 reference :
 
   - https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree#Implementations
-  - https://www.youtube.com/watch?v=FNeL18KsWPc
+  - http://opendatastructures.org/ods-java/7_Random_Binary_Search_Tree.html
 
 ***( forked from [js-algo](https://github.com/aureooms/js-algo) )***
