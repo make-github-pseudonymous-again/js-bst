@@ -13,7 +13,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "commentsOnly": true,
           "name": "Markdown"
         },
-        "sourcePath": "/home/genius/dev/js/js-bst/README.md",
+        "sourcePath": "/home/aureooms/dev/js/js-bst/README.md",
         "projectPath": "README.md",
         "targetPath": "index",
         "pageTitle": "index",
@@ -21,6 +21,36 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       },
       "depth": 1,
       "outline": []
+    }, {
+      "type": "folder",
+      "data": {
+        "path": "AVLTree",
+        "title": "AVLTree"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/AVLTree/AVLTree1.js",
+            "projectPath": "js/src/AVLTree/AVLTree1.js",
+            "targetPath": "AVLTree/AVLTree1",
+            "pageTitle": "AVLTree/AVLTree1",
+            "title": "AVLTree1"
+          },
+          "depth": 2,
+          "outline": []
+        }
+      ]
     }, {
       "type": "folder",
       "data": {
@@ -41,7 +71,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/home/genius/dev/js/js-bst/js/src/SplayTree/SplayTree1.js",
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/SplayTree/SplayTree1.js",
             "projectPath": "js/src/SplayTree/SplayTree1.js",
             "targetPath": "SplayTree/SplayTree1",
             "pageTitle": "SplayTree/SplayTree1",
@@ -61,7 +91,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/home/genius/dev/js/js-bst/js/src/SplayTree/SplayTree2.js",
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/SplayTree/SplayTree2.js",
             "projectPath": "js/src/SplayTree/SplayTree2.js",
             "targetPath": "SplayTree/SplayTree2",
             "pageTitle": "SplayTree/SplayTree2",
@@ -81,7 +111,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/home/genius/dev/js/js-bst/js/src/SplayTree/SplayTree3.js",
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/SplayTree/SplayTree3.js",
             "projectPath": "js/src/SplayTree/SplayTree3.js",
             "targetPath": "SplayTree/SplayTree3",
             "pageTitle": "SplayTree/SplayTree3",
@@ -101,7 +131,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/home/genius/dev/js/js-bst/js/src/SplayTree/SplayTree4.js",
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/SplayTree/SplayTree4.js",
             "projectPath": "js/src/SplayTree/SplayTree4.js",
             "targetPath": "SplayTree/SplayTree4",
             "pageTitle": "SplayTree/SplayTree4",
@@ -121,11 +151,391 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/home/genius/dev/js/js-bst/js/src/SplayTree/SplayTree5.js",
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/SplayTree/SplayTree5.js",
             "projectPath": "js/src/SplayTree/SplayTree5.js",
             "targetPath": "SplayTree/SplayTree5",
             "pageTitle": "SplayTree/SplayTree5",
             "title": "SplayTree5"
+          },
+          "depth": 2,
+          "outline": []
+        }
+      ]
+    }, {
+      "type": "folder",
+      "data": {
+        "path": "UnbalancedBST",
+        "title": "UnbalancedBST"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/UnbalancedBST/UnbalancedBST1.js",
+            "projectPath": "js/src/UnbalancedBST/UnbalancedBST1.js",
+            "targetPath": "UnbalancedBST/UnbalancedBST1",
+            "pageTitle": "UnbalancedBST/UnbalancedBST1",
+            "title": "UnbalancedBST1"
+          },
+          "depth": 2,
+          "outline": []
+        }
+      ]
+    }, {
+      "type": "folder",
+      "data": {
+        "path": "fundamentals",
+        "title": "fundamentals"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/avlbalance.js",
+            "projectPath": "js/src/fundamentals/avlbalance.js",
+            "targetPath": "fundamentals/avlbalance",
+            "pageTitle": "fundamentals/avlbalance",
+            "title": "avlbalance"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/find.js",
+            "projectPath": "js/src/fundamentals/find.js",
+            "targetPath": "fundamentals/find",
+            "pageTitle": "fundamentals/find",
+            "title": "find"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/inordertraversal.js",
+            "projectPath": "js/src/fundamentals/inordertraversal.js",
+            "targetPath": "fundamentals/inordertraversal",
+            "pageTitle": "fundamentals/inordertraversal",
+            "title": "inordertraversal"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/insert.js",
+            "projectPath": "js/src/fundamentals/insert.js",
+            "targetPath": "fundamentals/insert",
+            "pageTitle": "fundamentals/insert",
+            "title": "insert"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/insertwithparent.js",
+            "projectPath": "js/src/fundamentals/insertwithparent.js",
+            "targetPath": "fundamentals/insertwithparent",
+            "pageTitle": "fundamentals/insertwithparent",
+            "title": "insertwithparent"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/leftrotate.js",
+            "projectPath": "js/src/fundamentals/leftrotate.js",
+            "targetPath": "fundamentals/leftrotate",
+            "pageTitle": "fundamentals/leftrotate",
+            "title": "leftrotate"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/leftrotatewithparent.js",
+            "projectPath": "js/src/fundamentals/leftrotatewithparent.js",
+            "targetPath": "fundamentals/leftrotatewithparent",
+            "pageTitle": "fundamentals/leftrotatewithparent",
+            "title": "leftrotatewithparent"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/max.js",
+            "projectPath": "js/src/fundamentals/max.js",
+            "targetPath": "fundamentals/max",
+            "pageTitle": "fundamentals/max",
+            "title": "max"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/min.js",
+            "projectPath": "js/src/fundamentals/min.js",
+            "targetPath": "fundamentals/min",
+            "pageTitle": "fundamentals/min",
+            "title": "min"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/predecessor.js",
+            "projectPath": "js/src/fundamentals/predecessor.js",
+            "targetPath": "fundamentals/predecessor",
+            "pageTitle": "fundamentals/predecessor",
+            "title": "predecessor"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/range.js",
+            "projectPath": "js/src/fundamentals/range.js",
+            "targetPath": "fundamentals/range",
+            "pageTitle": "fundamentals/range",
+            "title": "range"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/remove.js",
+            "projectPath": "js/src/fundamentals/remove.js",
+            "targetPath": "fundamentals/remove",
+            "pageTitle": "fundamentals/remove",
+            "title": "remove"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/replace.js",
+            "projectPath": "js/src/fundamentals/replace.js",
+            "targetPath": "fundamentals/replace",
+            "pageTitle": "fundamentals/replace",
+            "title": "replace"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/rightrotate.js",
+            "projectPath": "js/src/fundamentals/rightrotate.js",
+            "targetPath": "fundamentals/rightrotate",
+            "pageTitle": "fundamentals/rightrotate",
+            "title": "rightrotate"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/rightrotatewithparent.js",
+            "projectPath": "js/src/fundamentals/rightrotatewithparent.js",
+            "targetPath": "fundamentals/rightrotatewithparent",
+            "pageTitle": "fundamentals/rightrotatewithparent",
+            "title": "rightrotatewithparent"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/successor.js",
+            "projectPath": "js/src/fundamentals/successor.js",
+            "targetPath": "fundamentals/successor",
+            "pageTitle": "fundamentals/successor",
+            "title": "successor"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/home/aureooms/dev/js/js-bst/js/src/fundamentals/treeinsert.js",
+            "projectPath": "js/src/fundamentals/treeinsert.js",
+            "targetPath": "fundamentals/treeinsert",
+            "pageTitle": "fundamentals/treeinsert",
+            "title": "treeinsert"
           },
           "depth": 2,
           "outline": []
@@ -355,7 +765,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       if (metaInfo.documentPath === 'index') {
         sourceURL = metaInfo.githubURL;
       } else {
-        sourceURL = "" + metaInfo.githubURL + "/blob/master/" + metaInfo.projectPath;
+        sourceURL = metaInfo.githubURL + "/blob/master/" + metaInfo.projectPath;
       }
       nav$.find('.tools').prepend("<li class=\"github\">\n  <a href=\"" + sourceURL + "\" title=\"View source on GitHub\">\n    View source on GitHub\n  </a>\n</li>");
     }

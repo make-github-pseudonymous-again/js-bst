@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="en"><head><title>fundamentals/rightrotatewithparent</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="fundamentals/rightrotatewithparent"><meta name="groc-project-path" content="js/src/fundamentals/rightrotatewithparent.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-bst"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-bst/blob/master/js/src/fundamentals/rightrotatewithparent.js">js/src/fundamentals/rightrotatewithparent.js</a></div></div><div id="document"><div class="segment"></div><div class="segment"><div class="comments "><div class="wrapper"><p>-&gt; <a href="https://en.wikipedia.org/wiki/Tree_rotation">https://en.wikipedia.org/wiki/Tree_rotation</a></p>
+<pre><code> B                A
+/ \              / \</code></pre>
+<p>   A   c     -&gt;     a   B
+  / \                  / \
+ a   b                b   c</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> rightrotatewithparent = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( B )</span> {</span>
+
+	<span class="hljs-keyword">var</span> A;
+
+	A = B.left;
+
+	B.left = A.right;
+	A.right = B;
+
+	A.parent = B.parent;
+	B.left.parent = B;
+	B.parent = A;
+
+	<span class="hljs-keyword">return</span> A;
+
+};
+
+exports.rightrotatewithparent = rightrotatewithparent;</div></div></div></div></body></html>

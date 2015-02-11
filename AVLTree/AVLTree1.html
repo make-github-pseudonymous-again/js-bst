@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="en"><head><title>AVLTree/AVLTree1</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="AVLTree/AVLTree1"><meta name="groc-project-path" content="js/src/AVLTree/AVLTree1.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-bst"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-bst/blob/master/js/src/AVLTree/AVLTree1.js">js/src/AVLTree/AVLTree1.js</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> AVLTree1 = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( compare )</span> {</span>
+
+	<span class="hljs-keyword">this</span>.compare = compare;
+
+	<span class="hljs-keyword">this</span>.root = <span class="hljs-literal">null</span>;
+
+};
+
+AVLTree1.Node = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( balancingfactor, parent, left, right, value )</span> {</span>
+
+	<span class="hljs-keyword">this</span>.balancingfactor = <span class="hljs-number">0</span>;
+
+	<span class="hljs-keyword">this</span>.parent = parent;
+
+	<span class="hljs-keyword">this</span>.left = left;
+
+	<span class="hljs-keyword">this</span>.right = right;
+
+	<span class="hljs-keyword">this</span>.value = value;
+
+};</div></div></div></div></body></html>
