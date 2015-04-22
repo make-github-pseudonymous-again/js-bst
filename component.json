@@ -4,7 +4,7 @@
 	"scripts": [
 		"js/dist/bst.js"
 	],
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "binary search tree code bricks in JavaScript",
 	"main": "js/dist/bst.js",
 	"license": "AGPL-3.0"
