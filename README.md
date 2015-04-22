@@ -14,6 +14,7 @@ binary search tree code bricks in JavaScript
 [![Code Climate](http://img.shields.io/codeclimate/github/aureooms/js-bst.svg?style=flat)](https://codeclimate.com/github/aureooms/js-bst)
 [![NPM downloads per month](http://img.shields.io/npm/dm/aureooms-js-bst.svg?style=flat)](https://www.npmjs.org/package/aureooms-js-bst)
 [![GitHub issues](http://img.shields.io/github/issues/aureooms/js-bst.svg?style=flat)](https://github.com/aureooms/js-bst/issues)
+[![Inline docs](http://inch-ci.org/github/aureooms/js-bst.svg?branch=master&style=shields)](http://inch-ci.org/github/aureooms/js-bst)
 
 reference :
 
