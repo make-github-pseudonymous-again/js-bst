@@ -1,12 +1,10 @@
-var all, util, sort, random, itertools, functools, shuffle;
+var all, util, compare, random, itertools, functools ;
 
 util = require( "util" );
-sort = require( "aureooms-js-sort" );
+compare = require( "aureooms-js-compare" );
 random = require( "aureooms-js-random" );
 itertools = require( "aureooms-js-itertools" );
 functools = require( "aureooms-js-functools" );
-
-shuffle = random.__shuffle__( random.__sample__( random.randint ) );
 
 /**
  * tests the following methods
@@ -68,7 +66,7 @@ all = function ( BSTname, BST, diffname, diff, n ) {
 		deepEqual( b, a, "check find sorted" );
 
 		// CHECK FIND SHUFFLED
-		shuffle( a, 0, n );
+		random.shuffle( a, 0, n );
 		i = n;
 		while ( i-- ) {
 			b[i] = bst.find( a[i][1] );
@@ -163,26 +161,32 @@ all = function ( BSTname, BST, diffname, diff, n ) {
 
 
 
-itertools.product( [
+itertools.exhaust(
+	itertools.starmap( all ,
+		itertools.map( functools.compose( [ itertools.list , itertools.chain ] ) ,
+			itertools.product( [
+				[
+					["__SplayTree1__", bst.__SplayTree1__],
+					["__SplayTree2__", bst.__SplayTree2__],
+					["__SplayTree3__", bst.__SplayTree3__],
+					["__SplayTree4__", bst.__SplayTree4__],
+					["__SplayTree5__", bst.__SplayTree5__],
+					["UnbalancedBST1", function ( compare ) {
+						return function ( ) {
+							return new bst.UnbalancedBST1( compare );
+						} ;
+					}],
+				],
 
-[
-	["__SplayTree1__", bst.__SplayTree1__],
-	["__SplayTree2__", bst.__SplayTree2__],
-	["__SplayTree3__", bst.__SplayTree3__],
-	["__SplayTree4__", bst.__SplayTree4__],
-	["__SplayTree5__", bst.__SplayTree5__],
-	["UnbalancedBST1", function ( compare ) {
-		return function ( ) {
-			return new bst.UnbalancedBST1( compare );
-		}
-	}],
-],
+				[
+					["increasing", compare.increasing],
+					["decreasing", compare.decreasing]
+				],
 
-[
-	["increasing", sort.increasing],
-	["decreasing", sort.decreasing]
-],
+				[[1], [16], [17], [31], [32], [33], [127], [128], [129]]
 
-[1, 16, 17, 31, 32, 33, 127, 128, 129]
-
-], 1, [] ).forEach( functools.partial( functools.star, [all] ) );
+				] , 1
+			)
+		)
+	)
+) ;
