@@ -3,7 +3,7 @@
 	"name": "aureooms-js-bst",
 	"license": "AGPL-3.0",
 	"description": "binary search tree code bricks in JavaScript",
-	"version": "2.0.2",
+	"version": "2.1.0",
 	"main": "js/dist/bst.js",
 	"ignore": [
 		"js/index.js",
