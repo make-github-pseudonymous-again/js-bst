@@ -3,6 +3,13 @@
 
 Binary search tree code bricks in JavaScript.
 
+```js
+let tree = new SplayTree( compare.increasing ) ;
+tree.add( 58786 ) ;
+tree.find( 58787 ) ; // NIL
+tree.find( 58786 ) ; // BINGO
+```
+
 [![NPM license](http://img.shields.io/npm/l/aureooms-js-bst.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-bst/master/LICENSE)
 [![NPM version](http://img.shields.io/npm/v/aureooms-js-bst.svg?style=flat)](https://www.npmjs.org/package/aureooms-js-bst)
 [![Bower version](http://img.shields.io/bower/v/aureooms-js-bst.svg?style=flat)](http://bower.io/search/?q=aureooms-js-bst)
