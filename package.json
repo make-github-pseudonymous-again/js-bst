@@ -9,15 +9,16 @@
 		"type": "git"
 	},
 	"keywords": [
-		"js",
-		"javascript",
-		"algorithm",
 		"adt",
-		"complexity",
-		"bst",
+		"algorithm",
 		"binary search tree",
-		"splay tree",
-		"red-black tree"
+		"bst",
+		"complexity",
+		"ender",
+		"javascript",
+		"js",
+		"red-black tree",
+		"splay tree"
 	],
 	"scripts": {
 		"build": "./node_modules/.bin/aureooms-node-package-build",
@@ -36,5 +37,8 @@
 		"url": "https://github.com/aureooms/js-bst/issues"
 	},
 	"dependencies": {},
-	"license": "AGPL-3.0"
+	"license": "AGPL-3.0",
+	"spm": {
+		"main": "js/dist/bst.js"
+	}
 }
