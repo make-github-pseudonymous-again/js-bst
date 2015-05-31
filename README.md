@@ -105,3 +105,4 @@ require( [ "aureooms-js-bst" ] , function ( bst ) { ... } ) ;
 
   - https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree#Implementations
   - http://opendatastructures.org/ods-java/7_Random_Binary_Search_Tree.html
+  - https://github.com/mikolalysenko/functional-red-black-tree
