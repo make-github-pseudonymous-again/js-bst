@@ -1,11 +1,710 @@
-"use strict";
+'use strict';
 
 (function () {
 
-	"use strict";
+	'use strict';
 
 	var definition = function definition(exports, undefined) {
 
+		/* js/src/000-fundamentals */
+		/* js/src/000-fundamentals/avlbalance.js */
+
+		/**
+   * -> https://en.wikipedia.org/wiki/AVL_tree
+   */
+
+		var avlbalance = function avlbalance(P) {
+
+			var N;
+
+			// Possibly up to the root
+
+			do {
+
+				if (P.balancefactor === 2) {
+
+					// The left column
+					// N === P.left, the child whose height increases by 1.
+
+					N = P.left;
+
+					if (N.balancefactor === -1) {
+
+						// The "Left Right Case"
+						//
+						//     (2)  P
+						//         / \
+						//  (-1)  N   D
+						//       / \
+						//      A   4
+						//         / \
+						//        B   C
+						//
+						// Reduce to "Left Left Case"
+
+						P.left = leftrotatewithparent(N);
+					}
+
+					// Left Left Case
+					//
+					//     (2)  P
+					//         / \
+					// (1/0)  4   D
+					//       / \
+					//      3   C
+					//     / \
+					//    A   B
+
+					// PROBLEM : DOES NOT KNOW WHICH OF LEFT OR RIGHT CHILD P IS
+					P.parent.leftorright = rightrotatewithparent(P);
+
+					// Balanced
+					//
+					//  (-1/0)  4
+					//         / \
+					//        3   5
+					//       / \ / \
+					//
+
+					break;
+				} else if (P.balancefactor === -2) {
+
+					// The right column
+					// N == P.right, the child whose height increases by 1.
+
+					N = P.right;
+
+					if (N.balancefactor === 1) {
+						// The "Right Left Case"
+						// Reduce to "Right Right Case"
+						rightrotate(N);
+					}
+					// Right Right Case
+					leftrotate(P);
+
+					break;
+				} else if (P.balancefactor === 0) {
+					break;
+				}
+
+				// Keep P.balancefactor == ±1.
+				// height( N ) increases by 1.
+				N = P;
+				P = N.parent;
+			} while (P !== null);
+		};
+
+		exports.avlbalance = avlbalance;
+
+		/* js/src/000-fundamentals/find.js */
+
+		var find = function find(compare, node, value) {
+
+			var d;
+
+			// scan for first node whose
+			// value equals parameter value
+
+			while (true) {
+
+				d = compare(value, node.value);
+
+				if (d === 0) {
+					return node;
+				} else if (d < 0) {
+					node = node.left;
+				} else {
+					node = node.right;
+				}
+
+				if (node === null) {
+					return null;
+				}
+			}
+		};
+
+		exports.find = find;
+
+		/* js/src/000-fundamentals/inordertraversal.js */
+
+		var inordertraversal = function inordertraversal(callback, node) {
+
+			if (node.left !== null) {
+				inordertraversal(callback, node.left);
+			}
+
+			callback(node.value);
+
+			if (node.right !== null) {
+				inordertraversal(callback, node.right);
+			}
+		};
+
+		exports.inordertraversal = inordertraversal;
+
+		/* js/src/000-fundamentals/insert.js */
+
+		var insert = function insert(compare, A, B) {
+
+			var node, value;
+
+			node = null;
+			value = B.value;
+
+			while (true) {
+
+				if (compare(value, A.value) <= 0) {
+
+					node = A.left;
+
+					if (node === null) {
+						A.left = B;
+						break;
+					}
+
+					A = node;
+				} else {
+
+					node = A.right;
+
+					if (node === null) {
+						A.right = B;
+						break;
+					}
+
+					A = node;
+				}
+			}
+
+			return B;
+		};
+
+		exports.insert = insert;
+
+		/* js/src/000-fundamentals/insertwithparent.js */
+
+		var insertwithparent = function insertwithparent(compare, A, B) {
+
+			var node;
+
+			node = null;
+
+			while (true) {
+
+				if (compare(B, A) <= 0) {
+
+					node = A.left;
+
+					if (node === null) {
+						A.left = B;
+						break;
+					}
+
+					A = node;
+				} else {
+
+					node = A.right;
+
+					if (node === null) {
+						A.right = B;
+						break;
+					}
+
+					A = node;
+				}
+			}
+
+			B.parent = A;
+
+			return B;
+		};
+
+		exports.insertwithparent = insertwithparent;
+
+		/* js/src/000-fundamentals/leftrotate.js */
+
+		/**
+   * -> https://en.wikipedia.org/wiki/Tree_rotation
+   *
+   *      A                B
+   *     / \              / \
+   *    a   B     ->     A   c
+   *       / \          / \
+   *      b   c        a   b
+   */
+
+		var leftrotate = function leftrotate(A) {
+
+			var B;
+
+			B = A.right;
+
+			A.right = B.left;
+			B.left = A;
+
+			return B;
+		};
+
+		exports.leftrotate = leftrotate;
+
+		/* js/src/000-fundamentals/leftrotatewithparent.js */
+
+		/**
+   * -> https://en.wikipedia.org/wiki/Tree_rotation
+   *
+   *      A                B
+   *     / \              / \
+   *    a   B     ->     A   c
+   *       / \          / \
+   *      b   c        a   b
+   */
+
+		var leftrotatewithparent = function leftrotatewithparent(A) {
+
+			var B;
+
+			B = A.right;
+
+			A.right = B.left;
+			B.left = A;
+
+			B.parent = A.parent;
+			A.right.parent = A;
+			A.parent = B;
+
+			return B;
+		};
+
+		exports.leftrotatewithparent = leftrotatewithparent;
+
+		/* js/src/000-fundamentals/max.js */
+
+		var max = function max(_x) {
+			var _again = true;
+
+			_function: while (_again) {
+				var node = _x;
+				_again = false;
+
+				if (node.right === null) {
+					return node;
+				}
+
+				_x = node.right;
+				_again = true;
+				continue _function;
+			}
+		};
+
+		exports.max = max;
+
+		/* js/src/000-fundamentals/min.js */
+
+		var min = function min(_x2) {
+			var _again2 = true;
+
+			_function2: while (_again2) {
+				var node = _x2;
+				_again2 = false;
+
+				if (node.left === null) {
+					return node;
+				}
+
+				_x2 = node.left;
+				_again2 = true;
+				continue _function2;
+			}
+		};
+
+		exports.min = min;
+
+		/* js/src/000-fundamentals/predecessor.js */
+
+		/**
+   * Finds the greatest value in the binary search tree
+   * which is smaller than parameter value.
+   */
+
+		var predecessor = function predecessor(_x3, _x4, _x5, _x6) {
+			var _again3 = true;
+
+			_function3: while (_again3) {
+				var compare = _x3,
+				    node = _x4,
+				    value = _x5,
+				    pred = _x6;
+				d = undefined;
+				_again3 = false;
+
+				var d;
+
+				d = compare(value, node.value);
+
+				if (d === 0) {
+					return [true, node.value];
+				} else if (d < 0) {
+
+					if (node.left === null) {
+						return [false, pred];
+					}
+
+					_x3 = compare;
+					_x4 = node.left;
+					_x5 = value;
+					_x6 = pred;
+					_again3 = true;
+					continue _function3;
+				} else {
+
+					if (node.right === null) {
+						return [false, node.value];
+					}
+
+					_x3 = compare;
+					_x4 = node.right;
+					_x5 = value;
+					_x6 = node.value;
+					_again3 = true;
+					continue _function3;
+				}
+			}
+		};
+
+		exports.predecessor = predecessor;
+
+		/* js/src/000-fundamentals/range.js */
+
+		var range = function range(compare, node, value, iterators) {
+
+			var d;
+
+			// scan for first node whose
+			// value equals parameter value
+
+			while (true) {
+
+				d = compare(value, node.value);
+
+				if (d === 0) {
+					break;
+				} else if (d < 0) {
+					node = node.left;
+				} else {
+					node = node.right;
+				}
+
+				if (node === null) {
+					return iterators;
+				}
+			}
+
+			// enumerate all nodes whose value
+			// equals parameter value
+
+			do {
+
+				iterators.push(node);
+
+				node = node.left;
+			} while (node !== null && compare(value, node.value) === 0);
+
+			return iterators;
+		};
+
+		exports.range = range;
+
+		/* js/src/000-fundamentals/rbinsertfixup.js */
+
+		/**
+   * @param {node} z the node to fix, z is RED
+   */
+
+		var rbinsertfixup = function rbinsertfixup(T, z) {
+
+			while (z.p.c === RED) {
+
+				// z is RED
+				// if the parent of z is BLACK
+				// it violates (3)
+				// and we need to fix it
+
+				if (z.p === z.p.p.l) {
+
+					// if our parent is a left child
+					// let y be our uncle
+
+					//
+					//              z.p.p -> BLACK since z.p is RED
+					//            /       \
+					//    RED <- z.p       y
+					//         /     \
+					//        ? <-z-> ?
+					//            |
+					//           RED
+
+					var y = z.p.p.r;
+
+					if (y.c === RED) {
+
+						// if our uncle is red
+
+						//
+						//              z.p.p -> ~RED (might violate (3))
+						//            /       \
+						// ~BLACK <- z.p       y -> ~BLACK
+						//         /     \
+						//        ? <-z-> ?
+						//            |
+						//           RED
+
+						z.p.c = BLACK;
+						y.c = BLACK;
+						z.p.p.c = RED;
+						z = z.p.p;
+					}
+				}
+			}
+		};
+
+		/* js/src/000-fundamentals/remove.js */
+
+		var remove = function remove(compare, node, value) {
+
+			var left, right, rightest, delta;
+
+			delta = compare(value, node.value);
+
+			if (delta === 0) {
+
+				left = node.left;
+				right = node.right;
+
+				if (left === null) {
+					return right;
+				} else if (right === null) {
+					return left;
+				} else {
+
+					rightest = left;
+
+					while (rightest.right !== null) {
+						rightest = rightest.right;
+					}
+
+					rightest.right = right;
+
+					return left;
+				}
+			} else if (delta < 0) {
+
+				if (node.left !== null) {
+					node.left = remove(compare, node.left, value);
+				}
+
+				return node;
+			} else {
+
+				if (node.right !== null) {
+					node.right = remove(compare, node.right, value);
+				}
+
+				return node;
+			}
+		};
+
+		exports.remove = remove;
+
+		/* js/src/000-fundamentals/replace.js */
+
+		var replace = function replace(compare, A, B) {
+
+			var delta, node, value;
+
+			node = null;
+			value = B.value;
+
+			while (true) {
+
+				delta = compare(value, A.value);
+
+				if (delta === 0) {
+					A.value = value;
+					return A;
+				} else if (delta < 0) {
+
+					node = A.left;
+
+					if (node === null) {
+						A.left = B;
+						return B;
+					}
+
+					A = node;
+				} else {
+
+					node = A.right;
+
+					if (node === null) {
+						A.right = B;
+						return B;
+					}
+
+					A = node;
+				}
+			}
+		};
+
+		exports.replace = replace;
+
+		/* js/src/000-fundamentals/rightrotate.js */
+
+		/**
+   * -> https://en.wikipedia.org/wiki/Tree_rotation
+   *
+   *      B                A
+   *     / \              / \
+   *    A   c     ->     a   B
+   *   / \                  / \
+   *  a   b                b   c
+   */
+
+		var rightrotate = function rightrotate(B) {
+
+			var A;
+
+			A = B.left;
+
+			B.left = A.right;
+			A.right = B;
+
+			return A;
+		};
+
+		exports.rightrotate = rightrotate;
+
+		/* js/src/000-fundamentals/rightrotatewithparent.js */
+
+		/**
+   * -> https://en.wikipedia.org/wiki/Tree_rotation
+   *
+   *      B                A
+   *     / \              / \
+   *    A   c     ->     a   B
+   *   / \                  / \
+   *  a   b                b   c
+   */
+
+		var rightrotatewithparent = function rightrotatewithparent(B) {
+
+			var A;
+
+			A = B.left;
+
+			B.left = A.right;
+			A.right = B;
+
+			A.parent = B.parent;
+			B.left.parent = B;
+			B.parent = A;
+
+			return A;
+		};
+
+		exports.rightrotatewithparent = rightrotatewithparent;
+
+		/* js/src/000-fundamentals/successor.js */
+
+		/**
+   * Finds the smallest value in the binary search tree
+   * which is greater than parameter value.
+   */
+
+		var successor = function successor(_x7, _x8, _x9, _x10) {
+			var _again4 = true;
+
+			_function4: while (_again4) {
+				var compare = _x7,
+				    node = _x8,
+				    value = _x9,
+				    succ = _x10;
+				d = undefined;
+				_again4 = false;
+
+				var d;
+
+				d = compare(value, node.value);
+
+				if (d === 0) {
+					return [true, node.value];
+				} else if (d < 0) {
+
+					if (node.left === null) {
+						return [false, node.value];
+					}
+
+					_x7 = compare;
+					_x8 = node.left;
+					_x9 = value;
+					_x10 = node.value;
+					_again4 = true;
+					continue _function4;
+				} else {
+
+					if (node.right === null) {
+						return [false, succ];
+					}
+
+					_x7 = compare;
+					_x8 = node.right;
+					_x9 = value;
+					_x10 = succ;
+					_again4 = true;
+					continue _function4;
+				}
+			}
+		};
+
+		exports.successor = successor;
+
+		/* js/src/000-fundamentals/treeinsert.js */
+
+		var treeinsert = function treeinsert(compare, tree, node) {
+
+			if (tree.root === null) {
+				tree.root = node;
+			} else {
+				insert(compare, tree.root, node);
+			}
+		};
+
+		exports.treeinsert = treeinsert;
+
+		/* js/src/001-adt */
+		/* js/src/001-adt/RedBlackTree.js */
+		(function (exports) {
+
+			var BLACK = 0;
+			var RED = 1;
+
+			var Node = function Node(value) {
+
+				this.color = BLACK;
+				this.parent = NULL;
+				this.left = NULL;
+				this.right = NULL;
+				this.value = value;
+			};
+
+			var NULL = new Node(undefined);
+
+			var Tree = function Tree(compare) {
+
+				this.compare = compare;
+
+				this.root = NULL;
+			};
+		})(exports['RedBlackTree'] = {});
 		/* js/src/AVLTree */
 		/* js/src/AVLTree/AVLTree1.js */
 
@@ -259,13 +958,9 @@
 
 			var remove = function remove(el, v) {
 				var r = splay(el, v);
-				if (!r[0]) {
-					return r[1];
-				}if (r[1][0] === null) {
-					return r[1][1];
-				} else if (r[1][1] === null) {
-					return r[1][0];
-				} else {
+				if (!r[0]) return r[1];
+
+				if (r[1][0] === null) return r[1][1];else if (r[1][1] === null) return r[1][0];else {
 					r[1][0] = splay(r[1][0], v)[1];
 					r[1][0][1] = r[1][1];
 					return r[1][0];
@@ -358,13 +1053,9 @@
 
 			var remove = function remove(el, v) {
 				var r = splay(el, v);
-				if (!r[0]) {
-					return r[1];
-				}if (r[1][0] === null) {
-					return r[1][1];
-				} else if (r[1][1] === null) {
-					return r[1][0];
-				} else {
+				if (!r[0]) return r[1];
+
+				if (r[1][0] === null) return r[1][1];else if (r[1][1] === null) return r[1][0];else {
 					r[1][0] = splay(r[1][0], v)[1];
 					r[1][0][1] = r[1][1];
 					return r[1][0];
@@ -463,13 +1154,9 @@
 			var remove = function remove(el, v) {
 				var i = splay(el, v);
 				var pt = i.pt;
-				if (i.d !== 0) {
-					return pt;
-				}if (pt.l === null) {
-					return pt.r;
-				} else if (pt.r === null) {
-					return pt.l;
-				} else {
+				if (i.d !== 0) return pt;
+
+				if (pt.l === null) return pt.r;else if (pt.r === null) return pt.l;else {
 					pt.l = splay(pt.l, v).pt;
 					pt.l.r = pt.r;
 					return pt.l;
@@ -683,636 +1370,15 @@
 
 		exports.UnbalancedBST1 = UnbalancedBST1;
 
-		/* js/src/fundamentals */
-		/* js/src/fundamentals/avlbalance.js */
-
-		/**
-   * -> https://en.wikipedia.org/wiki/AVL_tree
-   */
-
-		var avlbalance = function avlbalance(P) {
-
-			var N;
-
-			// Possibly up to the root
-
-			do {
-
-				if (P.balancefactor === 2) {
-
-					// The left column
-					// N === P.left, the child whose height increases by 1.
-
-					N = P.left;
-
-					if (N.balancefactor === -1) {
-
-						// The "Left Right Case"
-						//
-						//     (2)  P
-						//         / \
-						//  (-1)  N   D
-						//       / \
-						//      A   4
-						//         / \
-						//        B   C
-						//
-						// Reduce to "Left Left Case"
-
-						P.left = leftrotatewithparent(N);
-					}
-
-					// Left Left Case
-					//
-					//     (2)  P
-					//         / \
-					// (1/0)  4   D
-					//       / \
-					//      3   C
-					//     / \
-					//    A   B
-
-					// PROBLEM : DOES NOT KNOW WHICH OF LEFT OR RIGHT CHILD P IS
-					P.parent.leftorright = rightrotatewithparent(P);
-
-					// Balanced
-					//
-					//  (-1/0)  4
-					//         / \
-					//        3   5
-					//       / \ / \
-					//
-
-					break;
-				} else if (P.balancefactor === -2) {
-
-					// The right column
-					// N == P.right, the child whose height increases by 1.
-
-					N = P.right;
-
-					if (N.balancefactor === 1) {
-						// The "Right Left Case"
-						// Reduce to "Right Right Case"
-						rightrotate(N);
-					}
-					// Right Right Case
-					leftrotate(P);
-
-					break;
-				} else if (P.balancefactor === 0) {
-					break;
-				}
-
-				// Keep P.balancefactor == ±1.
-				// height( N ) increases by 1.
-				N = P;
-				P = N.parent;
-			} while (P !== null);
-		};
-
-		exports.avlbalance = avlbalance;
-
-		/* js/src/fundamentals/find.js */
-
-		var find = function find(compare, node, value) {
-
-			var d;
-
-			// scan for first node whose
-			// value equals parameter value
-
-			while (true) {
-
-				d = compare(value, node.value);
-
-				if (d === 0) {
-					return node;
-				} else if (d < 0) {
-					node = node.left;
-				} else {
-					node = node.right;
-				}
-
-				if (node === null) {
-					return null;
-				}
-			}
-		};
-
-		exports.find = find;
-
-		/* js/src/fundamentals/inordertraversal.js */
-
-		var inordertraversal = function inordertraversal(callback, node) {
-
-			if (node.left !== null) {
-				inordertraversal(callback, node.left);
-			}
-
-			callback(node.value);
-
-			if (node.right !== null) {
-				inordertraversal(callback, node.right);
-			}
-		};
-
-		exports.inordertraversal = inordertraversal;
-
-		/* js/src/fundamentals/insert.js */
-
-		var insert = function insert(compare, A, B) {
-
-			var node, value;
-
-			node = null;
-			value = B.value;
-
-			while (true) {
-
-				if (compare(value, A.value) <= 0) {
-
-					node = A.left;
-
-					if (node === null) {
-						A.left = B;
-						break;
-					}
-
-					A = node;
-				} else {
-
-					node = A.right;
-
-					if (node === null) {
-						A.right = B;
-						break;
-					}
-
-					A = node;
-				}
-			}
-
-			return B;
-		};
-
-		exports.insert = insert;
-
-		/* js/src/fundamentals/insertwithparent.js */
-
-		var insertwithparent = function insertwithparent(compare, A, B) {
-
-			var node;
-
-			node = null;
-
-			while (true) {
-
-				if (compare(B, A) <= 0) {
-
-					node = A.left;
-
-					if (node === null) {
-						A.left = B;
-						break;
-					}
-
-					A = node;
-				} else {
-
-					node = A.right;
-
-					if (node === null) {
-						A.right = B;
-						break;
-					}
-
-					A = node;
-				}
-			}
-
-			B.parent = A;
-
-			return B;
-		};
-
-		exports.insertwithparent = insertwithparent;
-
-		/* js/src/fundamentals/leftrotate.js */
-
-		/**
-   * -> https://en.wikipedia.org/wiki/Tree_rotation
-   *
-   *      A                B
-   *     / \              / \
-   *    a   B     ->     A   c
-   *       / \          / \
-   *      b   c        a   b
-   */
-
-		var leftrotate = function leftrotate(A) {
-
-			var B;
-
-			B = A.right;
-
-			A.right = B.left;
-			B.left = A;
-
-			return B;
-		};
-
-		exports.leftrotate = leftrotate;
-
-		/* js/src/fundamentals/leftrotatewithparent.js */
-
-		/**
-   * -> https://en.wikipedia.org/wiki/Tree_rotation
-   *
-   *      A                B
-   *     / \              / \
-   *    a   B     ->     A   c
-   *       / \          / \
-   *      b   c        a   b
-   */
-
-		var leftrotatewithparent = function leftrotatewithparent(A) {
-
-			var B;
-
-			B = A.right;
-
-			A.right = B.left;
-			B.left = A;
-
-			B.parent = A.parent;
-			A.right.parent = A;
-			A.parent = B;
-
-			return B;
-		};
-
-		exports.leftrotatewithparent = leftrotatewithparent;
-
-		/* js/src/fundamentals/max.js */
-
-		var max = function max(_x) {
-			var _again = true;
-
-			_function: while (_again) {
-				_again = false;
-				var node = _x;
-
-				if (node.right === null) {
-					return node;
-				}
-
-				_x = node.right;
-				_again = true;
-				continue _function;
-			}
-		};
-
-		exports.max = max;
-
-		/* js/src/fundamentals/min.js */
-
-		var min = function min(_x2) {
-			var _again2 = true;
-
-			_function2: while (_again2) {
-				_again2 = false;
-				var node = _x2;
-
-				if (node.left === null) {
-					return node;
-				}
-
-				_x2 = node.left;
-				_again2 = true;
-				continue _function2;
-			}
-		};
-
-		exports.min = min;
-
-		/* js/src/fundamentals/predecessor.js */
-
-		/**
-   * Finds the greatest value in the binary search tree
-   * which is smaller than parameter value.
-   */
-
-		var predecessor = function predecessor(_x3, _x4, _x5, _x6) {
-			var _again3 = true;
-
-			_function3: while (_again3) {
-				d = undefined;
-				_again3 = false;
-				var compare = _x3,
-				    node = _x4,
-				    value = _x5,
-				    pred = _x6;
-
-				var d;
-
-				d = compare(value, node.value);
-
-				if (d === 0) {
-					return [true, node.value];
-				} else if (d < 0) {
-
-					if (node.left === null) {
-						return [false, pred];
-					}
-
-					_x3 = compare;
-					_x4 = node.left;
-					_x5 = value;
-					_x6 = pred;
-					_again3 = true;
-					continue _function3;
-				} else {
-
-					if (node.right === null) {
-						return [false, node.value];
-					}
-
-					_x3 = compare;
-					_x4 = node.right;
-					_x5 = value;
-					_x6 = node.value;
-					_again3 = true;
-					continue _function3;
-				}
-			}
-		};
-
-		exports.predecessor = predecessor;
-
-		/* js/src/fundamentals/range.js */
-
-		var range = function range(compare, node, value, iterators) {
-
-			var d;
-
-			// scan for first node whose
-			// value equals parameter value
-
-			while (true) {
-
-				d = compare(value, node.value);
-
-				if (d === 0) {
-					break;
-				} else if (d < 0) {
-					node = node.left;
-				} else {
-					node = node.right;
-				}
-
-				if (node === null) {
-					return iterators;
-				}
-			}
-
-			// enumerate all nodes whose value
-			// equals parameter value
-
-			do {
-
-				iterators.push(node);
-
-				node = node.left;
-			} while (node !== null && compare(value, node.value) === 0);
-
-			return iterators;
-		};
-
-		exports.range = range;
-
-		/* js/src/fundamentals/remove.js */
-
-		var remove = function remove(compare, node, value) {
-
-			var left, right, rightest, delta;
-
-			delta = compare(value, node.value);
-
-			if (delta === 0) {
-
-				left = node.left;
-				right = node.right;
-
-				if (left === null) {
-					return right;
-				} else if (right === null) {
-					return left;
-				} else {
-
-					rightest = left;
-
-					while (rightest.right !== null) {
-						rightest = rightest.right;
-					}
-
-					rightest.right = right;
-
-					return left;
-				}
-			} else if (delta < 0) {
-
-				if (node.left !== null) {
-					node.left = remove(compare, node.left, value);
-				}
-
-				return node;
-			} else {
-
-				if (node.right !== null) {
-					node.right = remove(compare, node.right, value);
-				}
-
-				return node;
-			}
-		};
-
-		exports.remove = remove;
-
-		/* js/src/fundamentals/replace.js */
-
-		var replace = function replace(compare, A, B) {
-
-			var delta, node, value;
-
-			node = null;
-			value = B.value;
-
-			while (true) {
-
-				delta = compare(value, A.value);
-
-				if (delta === 0) {
-					A.value = value;
-					return A;
-				} else if (delta < 0) {
-
-					node = A.left;
-
-					if (node === null) {
-						A.left = B;
-						return B;
-					}
-
-					A = node;
-				} else {
-
-					node = A.right;
-
-					if (node === null) {
-						A.right = B;
-						return B;
-					}
-
-					A = node;
-				}
-			}
-		};
-
-		exports.replace = replace;
-
-		/* js/src/fundamentals/rightrotate.js */
-
-		/**
-   * -> https://en.wikipedia.org/wiki/Tree_rotation
-   *
-   *      B                A
-   *     / \              / \
-   *    A   c     ->     a   B
-   *   / \                  / \
-   *  a   b                b   c
-   */
-
-		var rightrotate = function rightrotate(B) {
-
-			var A;
-
-			A = B.left;
-
-			B.left = A.right;
-			A.right = B;
-
-			return A;
-		};
-
-		exports.rightrotate = rightrotate;
-
-		/* js/src/fundamentals/rightrotatewithparent.js */
-
-		/**
-   * -> https://en.wikipedia.org/wiki/Tree_rotation
-   *
-   *      B                A
-   *     / \              / \
-   *    A   c     ->     a   B
-   *   / \                  / \
-   *  a   b                b   c
-   */
-
-		var rightrotatewithparent = function rightrotatewithparent(B) {
-
-			var A;
-
-			A = B.left;
-
-			B.left = A.right;
-			A.right = B;
-
-			A.parent = B.parent;
-			B.left.parent = B;
-			B.parent = A;
-
-			return A;
-		};
-
-		exports.rightrotatewithparent = rightrotatewithparent;
-
-		/* js/src/fundamentals/successor.js */
-
-		/**
-   * Finds the smallest value in the binary search tree
-   * which is greater than parameter value.
-   */
-
-		var successor = function successor(_x7, _x8, _x9, _x10) {
-			var _again4 = true;
-
-			_function4: while (_again4) {
-				d = undefined;
-				_again4 = false;
-				var compare = _x7,
-				    node = _x8,
-				    value = _x9,
-				    succ = _x10;
-
-				var d;
-
-				d = compare(value, node.value);
-
-				if (d === 0) {
-					return [true, node.value];
-				} else if (d < 0) {
-
-					if (node.left === null) {
-						return [false, node.value];
-					}
-
-					_x7 = compare;
-					_x8 = node.left;
-					_x9 = value;
-					_x10 = node.value;
-					_again4 = true;
-					continue _function4;
-				} else {
-
-					if (node.right === null) {
-						return [false, succ];
-					}
-
-					_x7 = compare;
-					_x8 = node.right;
-					_x9 = value;
-					_x10 = succ;
-					_again4 = true;
-					continue _function4;
-				}
-			}
-		};
-
-		exports.successor = successor;
-
-		/* js/src/fundamentals/treeinsert.js */
-
-		var treeinsert = function treeinsert(compare, tree, node) {
-
-			if (tree.root === null) {
-				tree.root = node;
-			} else {
-				insert(compare, tree.root, node);
-			}
-		};
-
-		exports.treeinsert = treeinsert;
-
 		return exports;
 	};
-	if (typeof exports === "object") {
+	if (typeof exports === 'object') {
 		definition(exports);
-	} else if (typeof define === "function" && define.amd) {
-		define("aureooms-js-bst", [], function () {
+	} else if (typeof define === 'function' && define.amd) {
+		define('aureooms-js-bst', [], function () {
 			return definition({});
 		});
-	} else if (typeof window === "object" && typeof window.document === "object") {
-		definition(window.bst = {});
-	} else console.error("unable to detect type of module to define for aureooms-js-bst");
+	} else if (typeof window === 'object' && typeof window.document === 'object') {
+		definition(window['bst'] = {});
+	} else console.error('unable to detect type of module to define for aureooms-js-bst');
 })();
