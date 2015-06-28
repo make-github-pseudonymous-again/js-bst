@@ -1,7 +1,8 @@
 [js-bst](http://aureooms.github.io/js-bst)
 ==
 
-Binary search tree code bricks in JavaScript.
+Binary search tree code bricks in JavaScript. Parent is
+[aureooms/js-data-structures](https://github.com/aureooms/js-data-structures).
 
 ```js
 let tree = new SplayTree( compare.increasing ) ;
