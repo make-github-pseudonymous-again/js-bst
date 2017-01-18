@@ -1,8 +1,8 @@
 [js-bst](http://aureooms.github.io/js-bst)
 ==
 
-Binary search tree code bricks in JavaScript. Parent is
-[aureooms/js-data-structures](https://github.com/aureooms/js-data-structures).
+Binary search tree code bricks in JavaScript.
+Parent is [aureooms/js-data-structures](https://github.com/aureooms/js-data-structures).
 
 ```js
 let tree = new SplayTree( compare.increasing ) ;
@@ -101,6 +101,12 @@ Alternatively, you can use any tool mentioned [here](http://bower.io/docs/tools/
 ```js
 require( [ "aureooms-js-bst" ] , function ( bst ) { ... } ) ;
 ```
+## Children
+
+  - [x] [@aureooms/js-red-black-tree](https://github.com/aureooms/js-red-black-tree)
+  - [ ] Splay tree
+  - [ ] AVL tree
+  
 
 ## Reference
 
