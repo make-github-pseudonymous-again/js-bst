@@ -1,0 +1,72 @@
+{
+  "name": "aureooms-js-bst",
+  "description": "Binary search tree data structure library for JavaScript",
+  "version": "3.0.0",
+  "author": "Aurélien Ooms <aurelien.ooms@gmail.com>",
+  "ava": {
+    "require": [
+      "babel-polyfill",
+      "babel-register"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ],
+    "env": {
+      "development": {
+        "sourceMaps": "inline"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/aureooms/js-bst/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "aureooms-js-compare": "^1.4.5",
+    "aureooms-js-functools": "^2.0.3",
+    "aureooms-js-itertools": "^3.1.1",
+    "aureooms-js-random": "^1.0.2",
+    "ava": "^0.17.0",
+    "babel-cli": "^6.18.0",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-latest": "^6.16.0",
+    "codeclimate-test-reporter": "^0.4.0",
+    "coveralls": "^2.11.15",
+    "esdoc": "^0.5.2",
+    "nyc": "^10.1.2"
+  },
+  "homepage": "https://aureooms.github.io/js-bst",
+  "keywords": [
+    "adt",
+    "algorithm",
+    "avl",
+    "balanced",
+    "binary",
+    "black",
+    "bst",
+    "complexity",
+    "data",
+    "javascript",
+    "js",
+    "red",
+    "red-black",
+    "search",
+    "splay",
+    "structure",
+    "tree"
+  ],
+  "license": "AGPL-3.0",
+  "main": "lib/index.js",
+  "repository": {
+    "url": "https://github.com/aureooms/js-bst.git",
+    "type": "git"
+  },
+  "scripts": {
+    "build": "babel src -d lib",
+    "cover": "nyc --reporter=lcov npm test",
+    "prepublish": "npm run build",
+    "test": "ava ./test/src --concurrency 8"
+  }
+}

@@ -1,0 +1,2309 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "name": "src/AVLTree/AVLTree1.js",
+    "content": "\n\nvar AVLTree1 = function ( compare ) {\n\n\tthis.compare = compare;\n\n\tthis.root = null;\n\n};\n\nAVLTree1.Node = function ( balancingfactor, parent, left, right, value ) {\n\n\tthis.balancingfactor = 0;\n\n\tthis.parent = parent;\n\n\tthis.left = left;\n\n\tthis.right = right;\n\n\tthis.value = value;\n\n};\n",
+    "static": true,
+    "longname": "src/AVLTree/AVLTree1.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 1,
+    "kind": "function",
+    "name": "AVLTree1",
+    "memberof": "src/AVLTree/AVLTree1.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/AVLTree/AVLTree1.js~AVLTree1",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/AVLTree/AVLTree1.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 2,
+    "kind": "function",
+    "name": "Node",
+    "memberof": "src/AVLTree/AVLTree1.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/AVLTree/AVLTree1.js~Node",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/AVLTree/AVLTree1.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "balancingfactor",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "parent",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "left",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "right",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 3,
+    "kind": "file",
+    "name": "src/SplayTree/__SplayTree1__.js",
+    "content": "\nexport default function __SplayTree1__ ( diff ) {\n\n\tvar zig, zag, zigzig, zigzag, zagzig, zagzag, z, zz;\n\tvar insert, splay, remove, in_order_traversal, splay_tree;\n\n\tzig = function ( x, y ) { y[0] = x[1]; x[1] = y; };\n\tzag = function ( x, y ) { y[1] = x[0]; x[0] = y; };\n\n\tzigzig = function ( x, p, g ) { zig( p, g ); zig( x, p ); };\n\tzigzag = function ( x, p, g ) { zig( x, g ); zag( x, p ); };\n\tzagzig = function ( x, p, g ) { zag( x, g ); zig( x, p ); };\n\tzagzag = function ( x, p, g ) { zag( p, g ); zag( x, p ); };\n\n\tz  = [zig, zag];\n\tzz = [ [zigzig, zigzag], [zagzig, zagzag] ];\n\n\tinsert = function ( pt, v ) {\n\n\t\tvar w;\n\n\t\tw = diff( v, pt[2] ) > 0 | 0;\n\n\t\tif ( pt[w] === null ) {\n\t\t\tpt[w] = [null, null, v];\n\t\t}\n\n\t\telse {\n\t\t\tinsert(pt[w], v);\n\t\t}\n\n\t};\n\n\tsplay = function ( el, v ) {\n\n\t\tvar turn, path, pt, f, d, w, i;\n\n\t\tturn = [];\n\t\tpath = [];\n\t\tpt = el;\n\t\tf = undefined;\n\n\t\twhile ( f === undefined ) {\n\n\t\t\tif ( pt === null ) {\n\t\t\t\tf = false;\n\t\t\t\tpt = path[path.length - 1];\n\t\t\t\t--turn.length;\n\t\t\t}\n\t\t\telse {\n\n\t\t\t\td = diff( v, pt[2] );\n\n\t\t\t\tif ( d === 0 ) {\n\t\t\t\t\tf = true;\n\t\t\t\t}\n\n\t\t\t\telse {\n\t\t\t\t\tw = d > 0 | 0;\n\t\t\t\t\tpath.push( pt );\n\t\t\t\t\tturn.push( w );\n\t\t\t\t\tpt = pt[w];\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\t\ti = turn.length - 1;\n\n\t\tfor ( ; i > 0 ; i -= 2 ) {\n\t\t\tzz[turn[i-1]][turn[i]]( pt, path[i], path[i-1] );\n\t\t}\n\n\t\tif ( i === 0 ) {\n\t\t\tz[turn[0]]( pt, el );\n\t\t}\n\n\t\treturn [f, pt];\n\t};\n\n\tremove = function ( el, v ) {\n\t\tvar r;\n\n\t\tr = splay( el, v );\n\n\t\tif ( !r[0] ) {\n\t\t\treturn r[1];\n\t\t}\n\n\n\t\tif ( r[1][0] === null ) {\n\t\t\treturn r[1][1];\n\t\t}\n\n\t\telse if ( r[1][1] === null ) {\n\t\t\treturn r[1][0];\n\t\t}\n\n\t\telse {\n\t\t\tr[1][0] = splay( r[1][0], v )[1];\n\t\t\tr[1][0][1] = r[1][1];\n\t\t\treturn r[1][0];\n\t\t}\n\n\t};\n\n\tin_order_traversal = function ( pt, callback ) {\n\n\t\tif ( pt[0] !== null ) {\n\t\t\tin_order_traversal( pt[0], callback );\n\t\t}\n\n\t\tcallback( pt[2] );\n\n\t\tif ( pt[1] !== null ) {\n\t\t\tin_order_traversal( pt[1], callback );\n\t\t}\n\n\t};\n\n\n\tsplay_tree = function () {\n\t\tthis.pt = null;\n\t};\n\n\tsplay_tree.prototype.insert = function ( v ) {\n\n\t\tif ( this.pt === null ) {\n\t\t\tthis.pt = [null, null, v];\n\t\t}\n\n\t\telse {\n\t\t\tinsert( this.pt, v );\n\t\t}\n\n\t};\n\n\tsplay_tree.prototype.find = function ( v ) {\n\n\t\tvar r;\n\n\t\tif ( this.pt === null ) {\n\t\t\treturn [false, null];\n\t\t}\n\n\t\tr = splay( this.pt, v );\n\t\tthis.pt = r[1];\n\n\t\treturn [r[0], r[1][2]];\n\t};\n\n\tsplay_tree.prototype.remove = function ( v ) {\n\t\tif ( this.pt !== null ) {\n\t\t\tthis.pt = remove( this.pt, v );\n\t\t}\n\t};\n\n\tsplay_tree.prototype.in_order_traversal = function ( fn ) {\n\t\tif ( this.pt !== null ) {\n\t\t\tin_order_traversal( this.pt, fn );\n\t\t}\n\t};\n\n\treturn splay_tree;\n\n}\n\n",
+    "static": true,
+    "longname": "src/SplayTree/__SplayTree1__.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 4,
+    "kind": "function",
+    "name": "__SplayTree1__",
+    "memberof": "src/SplayTree/__SplayTree1__.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/SplayTree/__SplayTree1__.js~__SplayTree1__",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/SplayTree/__SplayTree1__.js",
+    "importStyle": "__SplayTree1__",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "diff",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 5,
+    "kind": "file",
+    "name": "src/SplayTree/__SplayTree2__.js",
+    "content": "\nexport default function __SplayTree2__(diff){\n\n\tvar insert = function(pt, v){\n\t\tvar w = diff(v, pt[2]) > 0 | 0;\n\t\tif   (pt[w] === null) pt[w] = [null, null, v];\n\t\telse insert(pt[w], v);\n\t};\n\n\tvar splay = function(el, v){\n\n\t\tvar turn = [], path = [], pt = el, f, d, w, i, a, zoz, zoz1, zoz2, pox, p, g;\n\n\t\twhile(f === undefined){\n\t\t\td = diff(v, pt[2]);\n\t\t\tif(d === 0) f = true;\n\t\t\telse {\n\t\t\t\tw = d > 0 | 0;\n\t\t\t\tif(pt[w] === null) f = false;\n\t\t\t\telse{\n\t\t\t\t\tpath.push(pt);\n\t\t\t\t\tturn.push(w);\n\t\t\t\t\tpt = pt[w];\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\ti = turn.length - 1;\n\t\ta = [pt, null];\n\t\tfor (; i > 0; i -= 2) {\n\t\t\tzoz2 = turn[i];\n\t\t\tzoz1 = turn[i-1];\n\t\t\tpox = zoz1 === zoz2 | 0;\n\t\t\tg = path[i-1];\n\t\t\tp = path[i];\n\t\t\ta[1] = p;\n\n\t\t\tg[zoz1] = a[pox][1 - zoz1];\n\t\t\ta[pox][1 - zoz1] = g;\n\n\t\t\tp[zoz2] = pt[1 - zoz2];\n\t\t\tpt[1 - zoz2] = p;\n\t\t}\n\n\t\tif (i === 0) {\n\t\t\tzoz = turn[0];\n\t\t\tel[zoz] = pt[1 - zoz];\n\t\t\tpt[1 - zoz] = el;\n\t\t}\n\n\t\treturn [f, pt];\n\t};\n\n\tvar remove = function(el, v){\n\t\tvar r = splay(el, v);\n\t\tif (!r[0]) return r[1];\n\n\t\tif      (r[1][0] === null) return r[1][1];\n\t\telse if (r[1][1] === null) return r[1][0];\n\t\telse {\n\t\t\tr[1][0] = splay(r[1][0], v)[1];\n\t\t\tr[1][0][1] = r[1][1];\n\t\t\treturn r[1][0];\n\t\t}\n\t};\n\n\tvar in_order_traversal = function(pt, fn){\n\t\tif(pt[0] !== null) in_order_traversal(pt[0], fn);\n\t\tfn(pt[2]);\n\t\tif(pt[1] !== null) in_order_traversal(pt[1], fn);\n\t};\n\n\n\tvar splay_tree = function(){ this.pt = null; };\n\n\tsplay_tree.prototype.insert = function(v){\n\t\tif(this.pt === null) this.pt = [null, null, v];\n\t\telse insert(this.pt, v);\n\t};\n\n\tsplay_tree.prototype.find = function(v){\n\t\tif(this.pt === null) return [false, null];\n\t\tvar r = splay(this.pt, v);\n\t\tthis.pt = r[1];\n\t\treturn [r[0], r[1][2]];\n\t};\n\n\tsplay_tree.prototype.remove = function(v){\n\t\tif(this.pt !== null) this.pt = remove(this.pt, v);\n\t};\n\n\tsplay_tree.prototype.in_order_traversal = function(fn){\n\t\tif(this.pt !== null) in_order_traversal(this.pt, fn);\n\t};\n\n\treturn splay_tree;\n\n}\n\n",
+    "static": true,
+    "longname": "src/SplayTree/__SplayTree2__.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 6,
+    "kind": "function",
+    "name": "__SplayTree2__",
+    "memberof": "src/SplayTree/__SplayTree2__.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/SplayTree/__SplayTree2__.js~__SplayTree2__",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/SplayTree/__SplayTree2__.js",
+    "importStyle": "__SplayTree2__",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "diff",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 7,
+    "kind": "file",
+    "name": "src/SplayTree/__SplayTree3__.js",
+    "content": "\nexport default function __SplayTree3__(diff){\n\n\tvar insert = function(pt, v){\n\t\tvar w = diff(v, pt[2]) > 0 | 0;\n\t\tif   (pt[w] === null) pt[w] = [null, null, v];\n\t\telse insert(pt[w], v);\n\t};\n\n\tvar splay = function(el, v){\n\n\t\tvar l, r, t, y, x, d;\n\t\tl = r = x = [null, null, undefined];\n\t\tt = el;\n\t\twhile (true) {\n\t\t\td = diff(v, t[2]);\n\t\t\tif (d < 0) {\n\t\t\t\tif (!t[0]) break;\n\t\t\t\tif (diff(v, t[0][2]) < 0) {\n\t\t\t\t\ty = t[0];\n\t\t\t\t\tt[0] = y[1];\n\t\t\t\t\ty[1] = t;\n\t\t\t\t\tt = y;\n\t\t\t\t\tif (!t[0]) break;\n\t\t\t\t}\n\t\t\t\tr[0] = t;\n\t\t\t\tr = t;\n\t\t\t\tt = t[0];\n\t\t\t}\n\t\t\telse if (d > 0) {\n\t\t\t\tif (!t[1]) break;\n\t\t\t\tif (diff(v, t[1][2]) > 0) {\n\t\t\t\t\ty = t[1];\n\t\t\t\t\tt[1] = y[0];\n\t\t\t\t\ty[0] = t;\n\t\t\t\t\tt = y;\n\t\t\t\t\tif (!t[1]) break;\n\t\t\t\t}\n\t\t\t\tl[1] = t;\n\t\t\t\tl = t;\n\t\t\t\tt = t[1];\n\t\t\t}\n\t\t\telse break;\n\t\t}\n\t\tl[1] = t[0];\n\t\tr[0] = t[1];\n\t\tt[0] = x[1];\n\t\tt[1] = x[0];\n\n\t\treturn [diff(v, t[2]) === 0, t];\n\t};\n\n\tvar remove = function(el, v){\n\t\tvar r = splay(el, v);\n\t\tif (!r[0]) return r[1];\n\n\t\tif      (r[1][0] === null) return r[1][1];\n\t\telse if (r[1][1] === null) return r[1][0];\n\t\telse {\n\t\t\tr[1][0] = splay(r[1][0], v)[1];\n\t\t\tr[1][0][1] = r[1][1];\n\t\t\treturn r[1][0];\n\t\t}\n\t};\n\n\tvar in_order_traversal = function(pt, fn){\n\t\tif(pt[0] !== null) in_order_traversal(pt[0], fn);\n\t\tfn(pt[2]);\n\t\tif(pt[1] !== null) in_order_traversal(pt[1], fn);\n\t};\n\n\n\tvar splay_tree = function(){ this.pt = null; };\n\n\tsplay_tree.prototype.insert = function(v){\n\t\tif(this.pt === null) this.pt = [null, null, v];\n\t\telse insert(this.pt, v);\n\t};\n\n\tsplay_tree.prototype.find = function(v){\n\t\tif(this.pt === null) return [false, null];\n\t\tvar r = splay(this.pt, v);\n\t\tthis.pt = r[1];\n\t\treturn [r[0], r[1][2]];\n\t};\n\n\tsplay_tree.prototype.remove = function(v){\n\t\tif(this.pt !== null) this.pt = remove(this.pt, v);\n\t};\n\n\tsplay_tree.prototype.in_order_traversal = function(fn){\n\t\tif(this.pt !== null) in_order_traversal(this.pt, fn);\n\t};\n\n\treturn splay_tree;\n\n}\n\n",
+    "static": true,
+    "longname": "src/SplayTree/__SplayTree3__.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 8,
+    "kind": "function",
+    "name": "__SplayTree3__",
+    "memberof": "src/SplayTree/__SplayTree3__.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/SplayTree/__SplayTree3__.js~__SplayTree3__",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/SplayTree/__SplayTree3__.js",
+    "importStyle": "__SplayTree3__",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "diff",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 9,
+    "kind": "file",
+    "name": "src/SplayTree/__SplayTree4__.js",
+    "content": "\nexport default function __SplayTree4__(diff){\n\n\tvar node = function(v){\n\t\tthis.l = this.r = null;\n\t\tthis.v = v;\n\t};\n\n\tvar item = function(d, pt){\n\t\tthis.d = d;\n\t\tthis.pt = pt;\n\t};\n\n\tvar splay = function(el, v){\n\n\t\tvar l, r, t, y, x, d;\n\t\tl = r = x = new node();\n\t\tt = el;\n\t\twhile (true) {\n\t\t\td = diff(v, t.v);\n\t\t\tif (d < 0) {\n\t\t\t\tif (!t.l) break;\n\t\t\t\tif (diff(v, t.l.v) < 0) {\n\t\t\t\t\ty = t.l;\n\t\t\t\t\tt.l = y.r;\n\t\t\t\t\ty.r = t;\n\t\t\t\t\tt = y;\n\t\t\t\t\tif (!t.l) break;\n\t\t\t\t}\n\t\t\t\tr.l = t;\n\t\t\t\tr = t;\n\t\t\t\tt = t.l;\n\t\t\t}\n\t\t\telse if (d > 0) {\n\t\t\t\tif (!t.r) break;\n\t\t\t\tif (diff(v, t.r.v) > 0) {\n\t\t\t\t\ty = t.r;\n\t\t\t\t\tt.r = y.l;\n\t\t\t\t\ty.l = t;\n\t\t\t\t\tt = y;\n\t\t\t\t\tif (!t.r) break;\n\t\t\t\t}\n\t\t\t\tl.r = t;\n\t\t\t\tl = t;\n\t\t\t\tt = t.r;\n\t\t\t}\n\t\t\telse break;\n\t\t}\n\t\tl.r = t.l;\n\t\tr.l = t.r;\n\t\tt.l = x.r;\n\t\tt.r = x.l;\n\n\t\treturn new item(d, t);\n\t};\n\n\tvar remove = function(el, v){\n\t\tvar i = splay(el, v);\n\t\tvar pt = i.pt;\n\t\tif (i.d !== 0) return pt;\n\n\t\tif      (pt.l === null) return pt.r;\n\t\telse if (pt.r === null) return pt.l;\n\t\telse {\n\t\t\tpt.l = splay(pt.l, v).pt;\n\t\t\tpt.l.r = pt.r;\n\t\t\treturn pt.l;\n\t\t}\n\t};\n\n\tvar in_order_traversal = function(pt, fn){\n\t\tif(pt.l !== null) in_order_traversal(pt.l, fn);\n\t\tfn(pt.v);\n\t\tif(pt.r !== null) in_order_traversal(pt.r, fn);\n\t};\n\n\n\tvar splay_tree = function(){ this.pt = null; };\n\n\tsplay_tree.prototype.insert = function(v){\n\t\tvar n = new node(v);\n\t\tif (this.pt !== null) {\n\t\t\tvar i = splay(this.pt, v);\n\t\t\tthis.pt = i.pt;\n\n\t\t\tif (i.d <= 0) {\n\t\t\t\tn.l = this.pt.l;\n\t\t\t\tn.r = this.pt;\n\t\t\t\tthis.pt.l = null;\n\t\t\t}\n\t\t\telse {\n\t\t\t\tn.r = this.pt.r;\n\t\t\t\tn.l = this.pt;\n\t\t\t\tthis.pt.r = null;\n\t\t\t}\n\t\t}\n\t\tthis.pt = n;\n\t};\n\n\tsplay_tree.prototype.find = function(v){\n\t\tif(this.pt === null) return [false, null];\n\t\tvar i = splay(this.pt, v);\n\t\tthis.pt = i.pt;\n\t\treturn [i.d === 0, this.pt.v];\n\t};\n\n\tsplay_tree.prototype.remove = function(v){\n\t\tif(this.pt !== null) this.pt = remove(this.pt, v);\n\t};\n\n\tsplay_tree.prototype.in_order_traversal = function(fn){\n\t\tif(this.pt !== null) in_order_traversal(this.pt, fn);\n\t};\n\n\treturn splay_tree;\n\n}\n\n",
+    "static": true,
+    "longname": "src/SplayTree/__SplayTree4__.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 10,
+    "kind": "function",
+    "name": "__SplayTree4__",
+    "memberof": "src/SplayTree/__SplayTree4__.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/SplayTree/__SplayTree4__.js~__SplayTree4__",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/SplayTree/__SplayTree4__.js",
+    "importStyle": "__SplayTree4__",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "diff",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 11,
+    "kind": "file",
+    "name": "src/SplayTree/__SplayTree5__.js",
+    "content": "\nexport default function __SplayTree5__(diff){\n\n\tvar node = function(v){\n\t\tthis.l = this.r = null;\n\t\tthis.v = v;\n\t};\n\n\tvar in_order_traversal = function(pt, fn){\n\t\tif(pt.l !== null) in_order_traversal(pt.l, fn);\n\t\tfn(pt.v);\n\t\tif(pt.r !== null) in_order_traversal(pt.r, fn);\n\t};\n\n\tvar splay_tree = function(){ this.pt = null; };\n\n\tsplay_tree.prototype.splay = function(v){\n\n\t\tvar l, r, t, y, x, d;\n\t\tl = r = x = new node();\n\t\tt = this.pt;\n\t\twhile (true) {\n\t\t\td = diff(v, t.v);\n\t\t\tif (d < 0) {\n\t\t\t\tif (!t.l) break;\n\t\t\t\tif (diff(v, t.l.v) < 0) {\n\t\t\t\t\ty = t.l;\n\t\t\t\t\tt.l = y.r;\n\t\t\t\t\ty.r = t;\n\t\t\t\t\tt = y;\n\t\t\t\t\tif (!t.l) break;\n\t\t\t\t}\n\t\t\t\tr.l = t;\n\t\t\t\tr = t;\n\t\t\t\tt = t.l;\n\t\t\t}\n\t\t\telse if (d > 0) {\n\t\t\t\tif (!t.r) break;\n\t\t\t\tif (diff(v, t.r.v) > 0) {\n\t\t\t\t\ty = t.r;\n\t\t\t\t\tt.r = y.l;\n\t\t\t\t\ty.l = t;\n\t\t\t\t\tt = y;\n\t\t\t\t\tif (!t.r) break;\n\t\t\t\t}\n\t\t\t\tl.r = t;\n\t\t\t\tl = t;\n\t\t\t\tt = t.r;\n\t\t\t}\n\t\t\telse break;\n\t\t}\n\t\tl.r = t.l;\n\t\tr.l = t.r;\n\t\tt.l = x.r;\n\t\tt.r = x.l;\n\n\t\tthis.pt = t;\n\n\t\treturn d;\n\t};\n\n\tsplay_tree.prototype.remove = function(v){\n\t\tif(this.pt === null) return;\n\n\t\tvar d = this.splay(v);\n\t\tif (d !== 0) return;\n\n\t\tif      (this.pt.l === null) this.pt = this.pt.r;\n\t\telse if (this.pt.r === null) this.pt = this.pt.l;\n\t\telse {\n\t\t\tvar tmp = this.pt.r;\n\t\t\tthis.pt = this.pt.l;\n\t\t\tthis.splay(v);\n\t\t\tthis.pt.r = tmp;\n\t\t}\n\t};\n\n\n\n\tsplay_tree.prototype.insert = function(v){\n\t\tvar n = new node(v);\n\t\tif (this.pt !== null) {\n\t\t\tvar d = this.splay(v);\n\n\t\t\tif (d <= 0) {\n\t\t\t\tn.l = this.pt.l;\n\t\t\t\tn.r = this.pt;\n\t\t\t\tthis.pt.l = null;\n\t\t\t}\n\t\t\telse {\n\t\t\t\tn.r = this.pt.r;\n\t\t\t\tn.l = this.pt;\n\t\t\t\tthis.pt.r = null;\n\t\t\t}\n\t\t}\n\t\tthis.pt = n;\n\t};\n\n\tsplay_tree.prototype.find = function(v){\n\t\tif(this.pt === null) return [false, null];\n\t\tvar d = this.splay(v);\n\t\treturn [d === 0, this.pt.v];\n\t};\n\n\tsplay_tree.prototype.in_order_traversal = function(fn){\n\t\tif(this.pt !== null) in_order_traversal(this.pt, fn);\n\t};\n\n\treturn splay_tree;\n\n}\n\n",
+    "static": true,
+    "longname": "src/SplayTree/__SplayTree5__.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 12,
+    "kind": "function",
+    "name": "__SplayTree5__",
+    "memberof": "src/SplayTree/__SplayTree5__.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/SplayTree/__SplayTree5__.js~__SplayTree5__",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/SplayTree/__SplayTree5__.js",
+    "importStyle": "__SplayTree5__",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "diff",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 13,
+    "kind": "file",
+    "name": "src/SplayTree/index.js",
+    "content": "import __SplayTree1__ from './__SplayTree1__' ;\nimport __SplayTree2__ from './__SplayTree2__' ;\nimport __SplayTree3__ from './__SplayTree3__' ;\nimport __SplayTree4__ from './__SplayTree4__' ;\nimport __SplayTree5__ from './__SplayTree5__' ;\n\nexport default {\n\t__SplayTree1__ ,\n\t__SplayTree2__ ,\n\t__SplayTree3__ ,\n\t__SplayTree4__ ,\n\t__SplayTree5__ ,\n} ;\n\nexport {\n\t__SplayTree1__ ,\n\t__SplayTree2__ ,\n\t__SplayTree3__ ,\n\t__SplayTree4__ ,\n\t__SplayTree5__ ,\n} ;\n",
+    "static": true,
+    "longname": "src/SplayTree/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 14,
+    "kind": "file",
+    "name": "src/UnbalancedBST/UnbalancedBST1.js",
+    "content": "import {\n\tremove ,\n\ttreeinsert ,\n\tpredecessor ,\n\tinordertraversal ,\n} from '../fundamentals' ;\n\nexport default function UnbalancedBST1 ( compare ) {\n\tthis.compare = compare;\n\tthis.root = null;\n}\n\nUnbalancedBST1.Node = function ( value ) {\n\tthis.value = value;\n\tthis.left = null;\n\tthis.right = null;\n};\n\nUnbalancedBST1.prototype.insert = function ( value ) {\n\n\ttreeinsert( this.compare, this, new UnbalancedBST1.Node( value ) );\n\n\treturn this;\n\n};\n\nUnbalancedBST1.prototype.remove = function ( value ) {\n\n\tif ( this.root !== null ) {\n\n\t\tthis.root = remove( this.compare, this.root, value );\n\n\t}\n\n\treturn this;\n\n};\n\nUnbalancedBST1.prototype.find = function ( value ) {\n\n\tif ( this.root === null ) {\n\t\treturn [false, null];\n\t}\n\n\treturn predecessor( this.compare, this.root, value, null );\n\n};\n\n\nUnbalancedBST1.prototype.in_order_traversal = function ( callback ) {\n\n\tif ( this.root !== null ) {\n\t\tinordertraversal( callback, this.root );\n\t}\n\n};\n",
+    "static": true,
+    "longname": "src/UnbalancedBST/UnbalancedBST1.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 15,
+    "kind": "function",
+    "name": "UnbalancedBST1",
+    "memberof": "src/UnbalancedBST/UnbalancedBST1.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/UnbalancedBST/UnbalancedBST1.js~UnbalancedBST1",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/UnbalancedBST/UnbalancedBST1.js",
+    "importStyle": "UnbalancedBST1",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 16,
+    "kind": "function",
+    "name": "Node",
+    "memberof": "src/UnbalancedBST/UnbalancedBST1.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/UnbalancedBST/UnbalancedBST1.js~Node",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/UnbalancedBST/UnbalancedBST1.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 17,
+    "kind": "function",
+    "name": "insert",
+    "memberof": "src/UnbalancedBST/UnbalancedBST1.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/UnbalancedBST/UnbalancedBST1.js~insert",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/UnbalancedBST/UnbalancedBST1.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 18,
+    "kind": "function",
+    "name": "remove",
+    "memberof": "src/UnbalancedBST/UnbalancedBST1.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/UnbalancedBST/UnbalancedBST1.js~remove",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/UnbalancedBST/UnbalancedBST1.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 19,
+    "kind": "function",
+    "name": "find",
+    "memberof": "src/UnbalancedBST/UnbalancedBST1.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/UnbalancedBST/UnbalancedBST1.js~find",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/UnbalancedBST/UnbalancedBST1.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 20,
+    "kind": "function",
+    "name": "in_order_traversal",
+    "memberof": "src/UnbalancedBST/UnbalancedBST1.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/UnbalancedBST/UnbalancedBST1.js~in_order_traversal",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/UnbalancedBST/UnbalancedBST1.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 50,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "callback",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 21,
+    "kind": "file",
+    "name": "src/UnbalancedBST/index.js",
+    "content": "import UnbalancedBST1 from './UnbalancedBST1' ;\n\nexport default {\n\tUnbalancedBST1 ,\n} ;\n\nexport {\n\tUnbalancedBST1 ,\n} ;\n",
+    "static": true,
+    "longname": "src/UnbalancedBST/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 22,
+    "kind": "file",
+    "name": "src/adt/RedBlackTree.js",
+    "content": "\nconst BLACK = 0 ;\nconst RED = 1 ;\n\nconst Node = function ( value ) {\n\n\tthis.color = BLACK ;\n\tthis.parent = NULL ;\n\tthis.left = NULL ;\n\tthis.right = NULL ;\n\tthis.value = value ;\n\n} ;\n\nconst NULL = new Node( undefined ) ;\n\nconst Tree = function ( compare ) {\n\n\tthis.compare = compare ;\n\n\tthis.root = NULL ;\n\n} ;\n\n\n",
+    "static": true,
+    "longname": "src/adt/RedBlackTree.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 23,
+    "kind": "variable",
+    "name": "BLACK",
+    "memberof": "src/adt/RedBlackTree.js",
+    "static": true,
+    "longname": "src/adt/RedBlackTree.js~BLACK",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/adt/RedBlackTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 24,
+    "kind": "variable",
+    "name": "RED",
+    "memberof": "src/adt/RedBlackTree.js",
+    "static": true,
+    "longname": "src/adt/RedBlackTree.js~RED",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/adt/RedBlackTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 25,
+    "kind": "function",
+    "name": "Node",
+    "memberof": "src/adt/RedBlackTree.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/adt/RedBlackTree.js~Node",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/adt/RedBlackTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 26,
+    "kind": "variable",
+    "name": "NULL",
+    "memberof": "src/adt/RedBlackTree.js",
+    "static": true,
+    "longname": "src/adt/RedBlackTree.js~NULL",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/adt/RedBlackTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "Node"
+      ]
+    }
+  },
+  {
+    "__docId__": 27,
+    "kind": "function",
+    "name": "Tree",
+    "memberof": "src/adt/RedBlackTree.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/adt/RedBlackTree.js~Tree",
+    "access": null,
+    "export": false,
+    "importPath": "aureooms-js-bst/src/adt/RedBlackTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 28,
+    "kind": "file",
+    "name": "src/fundamentals/avlbalance.js",
+    "content": "\n/**\n * -> https://en.wikipedia.org/wiki/AVL_tree\n */\n\nexport default function avlbalance ( P ) {\n\n\tvar N;\n\n\t// Possibly up to the root\n\n\tdo {\n\n\t\tif ( P.balancefactor === 2 ) {\n\n\t\t\t// The left column\n\t\t\t// N === P.left, the child whose height increases by 1.\n\n\t\t\tN = P.left;\n\n\t\t\tif ( N.balancefactor === -1 ) {\n\n\t\t\t\t// The \"Left Right Case\"\n\t\t\t\t//\n\t\t\t\t//     (2)  P\n\t\t\t\t//         / \\\n\t\t\t\t//  (-1)  N   D\n\t\t\t\t//       / \\\n\t\t\t\t//      A   4\n\t\t\t\t//         / \\\n\t\t\t\t//        B   C\n\t\t\t\t//\n\t\t\t\t// Reduce to \"Left Left Case\"\n\n\t\t\t\tP.left = leftrotatewithparent( N );\n\n\t\t\t}\n\n\t\t\t// Left Left Case\n\t\t\t//\n\t\t\t//     (2)  P\n\t\t\t//         / \\\n\t\t\t// (1/0)  4   D\n\t\t\t//       / \\\n\t\t\t//      3   C\n\t\t\t//     / \\\n\t\t\t//    A   B\n\n\n\t\t\t// PROBLEM : DOES NOT KNOW WHICH OF LEFT OR RIGHT CHILD P IS\n\t\t\tP.parent.leftorright = rightrotatewithparent( P );\n\n\t\t\t// Balanced\n\t\t\t//\n\t\t\t//  (-1/0)  4\n\t\t\t//         / \\\n\t\t\t//        3   5\n\t\t\t//       / \\ / \\\n\t\t\t//\n\n\t\t\tbreak;\n\n\t\t} else if ( P.balancefactor === -2 ) {\n\n\t\t\t// The right column\n\t\t\t// N == P.right, the child whose height increases by 1.\n\n\t\t\tN = P.right;\n\n\t\t\tif ( N.balancefactor === 1 ) {\n\t\t\t\t// The \"Right Left Case\"\n\t\t\t\t// Reduce to \"Right Right Case\"\n\t\t\t\trightrotate( N );\n\t\t\t}\n\t\t\t// Right Right Case\n\t\t\tleftrotate( P );\n\n\t\t\tbreak;\n\n\t\t} else if ( P.balancefactor === 0) {\n\t\t\tbreak;\n\t\t}\n\n\t\t// Keep P.balancefactor == ±1.\n\t\t// height( N ) increases by 1.\n\t\tN = P;\n\t\tP = N.parent;\n\n\t} while ( P !== null );\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/avlbalance.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 29,
+    "kind": "function",
+    "name": "avlbalance",
+    "memberof": "src/fundamentals/avlbalance.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/avlbalance.js~avlbalance",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/avlbalance.js",
+    "importStyle": "avlbalance",
+    "description": "-> https://en.wikipedia.org/wiki/AVL_tree",
+    "lineNumber": 6,
+    "params": [
+      {
+        "name": "P",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 30,
+    "kind": "file",
+    "name": "src/fundamentals/find.js",
+    "content": "\n\nexport default function find ( compare, node, value ) {\n\n\t// scan for first node whose\n\t// value equals parameter value\n\n\twhile ( true ) {\n\n\t\tconst d = compare( value, node.value );\n\n\t\tif ( d === 0 ) {\n\t\t\treturn node;\n\t\t}\n\n\t\telse if ( d < 0 ) {\n\t\t\tnode = node.left;\n\t\t}\n\n\t\telse {\n\t\t\tnode = node.right;\n\t\t}\n\n\t\tif ( node === null ) {\n\t\t\treturn null;\n\t\t}\n\n\t}\n\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/find.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 31,
+    "kind": "function",
+    "name": "find",
+    "memberof": "src/fundamentals/find.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/find.js~find",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/find.js",
+    "importStyle": "find",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "node",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 32,
+    "kind": "file",
+    "name": "src/fundamentals/index.js",
+    "content": "import avlbalance from './avlbalance' ;\nimport find from './find' ;\nimport inordertraversal from './inordertraversal' ;\nimport insert from './insert' ;\nimport insertwithparent from './insertwithparent' ;\nimport leftrotate from './leftrotate' ;\nimport leftrotatewithparent from './leftrotatewithparent' ;\nimport max from './max' ;\nimport min from './min' ;\nimport predecessor from './predecessor' ;\nimport range from './range' ;\nimport rbinsertfixup from './rbinsertfixup' ;\nimport remove from './remove' ;\nimport replace from './replace' ;\nimport rightrotate from './rightrotate' ;\nimport rightrotatewithparent from './rightrotatewithparent' ;\nimport successor from './successor' ;\nimport treeinsert from './treeinsert' ;\n\nexport default {\n\tavlbalance ,\n\tfind ,\n\tinordertraversal ,\n\tinsert ,\n\tinsertwithparent ,\n\tleftrotate ,\n\tleftrotatewithparent ,\n\tmax ,\n\tmin ,\n\tpredecessor ,\n\trange ,\n\trbinsertfixup ,\n\tremove ,\n\treplace ,\n\trightrotate ,\n\trightrotatewithparent ,\n\tsuccessor ,\n\ttreeinsert ,\n} ;\n\nexport {\n\tavlbalance ,\n\tfind ,\n\tinordertraversal ,\n\tinsert ,\n\tinsertwithparent ,\n\tleftrotate ,\n\tleftrotatewithparent ,\n\tmax ,\n\tmin ,\n\tpredecessor ,\n\trange ,\n\trbinsertfixup ,\n\tremove ,\n\treplace ,\n\trightrotate ,\n\trightrotatewithparent ,\n\tsuccessor ,\n\ttreeinsert ,\n} ;\n",
+    "static": true,
+    "longname": "src/fundamentals/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 33,
+    "kind": "file",
+    "name": "src/fundamentals/inordertraversal.js",
+    "content": "\nexport default function inordertraversal ( callback, node ) {\n\n\tif ( node.left !== null ) {\n\t\tinordertraversal( callback, node.left );\n\t}\n\n\tcallback( node.value );\n\n\tif ( node.right !== null ) {\n\t\tinordertraversal( callback, node.right );\n\t}\n\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/inordertraversal.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 34,
+    "kind": "function",
+    "name": "inordertraversal",
+    "memberof": "src/fundamentals/inordertraversal.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/inordertraversal.js~inordertraversal",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/inordertraversal.js",
+    "importStyle": "inordertraversal",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "callback",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "node",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 35,
+    "kind": "file",
+    "name": "src/fundamentals/insert.js",
+    "content": "\nexport default function insert ( compare, A, B ) {\n\n\tlet node = null;\n\tconst value = B.value;\n\n\twhile ( true ) {\n\n\t\tif ( compare( value, A.value ) <= 0 ) {\n\n\t\t\tnode = A.left;\n\n\t\t\tif ( node === null ) {\n\t\t\t\tA.left = B;\n\t\t\t\tbreak;\n\t\t\t}\n\n\t\t\tA = node;\n\n\t\t}\n\n\t\telse {\n\n\t\t\tnode = A.right;\n\n\t\t\tif ( node === null ) {\n\t\t\t\tA.right = B;\n\t\t\t\tbreak;\n\t\t\t}\n\n\t\t\tA = node;\n\n\t\t}\n\n\t}\n\n\treturn B;\n\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/insert.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 36,
+    "kind": "function",
+    "name": "insert",
+    "memberof": "src/fundamentals/insert.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/insert.js~insert",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/insert.js",
+    "importStyle": "insert",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "A",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "B",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 37,
+    "kind": "file",
+    "name": "src/fundamentals/insertwithparent.js",
+    "content": "\nexport default function insertwithparent ( compare, A, B ) {\n\n\tlet node = null;\n\n\twhile ( true ) {\n\n\t\tif ( compare( B, A ) <= 0 ) {\n\n\t\t\tnode = A.left;\n\n\t\t\tif ( node === null ) {\n\t\t\t\tA.left = B;\n\t\t\t\tbreak;\n\t\t\t}\n\n\t\t\tA = node;\n\n\t\t}\n\n\t\telse {\n\n\t\t\tnode = A.right;\n\n\t\t\tif ( node === null ) {\n\t\t\t\tA.right = B;\n\t\t\t\tbreak;\n\t\t\t}\n\n\t\t\tA = node;\n\n\t\t}\n\n\t}\n\n\tB.parent = A;\n\n\treturn B;\n\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/insertwithparent.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 38,
+    "kind": "function",
+    "name": "insertwithparent",
+    "memberof": "src/fundamentals/insertwithparent.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/insertwithparent.js~insertwithparent",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/insertwithparent.js",
+    "importStyle": "insertwithparent",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "A",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "B",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 39,
+    "kind": "file",
+    "name": "src/fundamentals/leftrotate.js",
+    "content": "\n\n/**\n * -> https://en.wikipedia.org/wiki/Tree_rotation\n *\n *      A                B\n *     / \\              / \\\n *    a   B     ->     A   c\n *       / \\          / \\\n *      b   c        a   b\n */\n\nexport default function leftrotate ( A ) {\n\n\tconst B = A.right;\n\n\tA.right = B.left;\n\tB.left = A;\n\n\treturn B;\n\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/leftrotate.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 40,
+    "kind": "function",
+    "name": "leftrotate",
+    "memberof": "src/fundamentals/leftrotate.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/leftrotate.js~leftrotate",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/leftrotate.js",
+    "importStyle": "leftrotate",
+    "description": "-> https://en.wikipedia.org/wiki/Tree_rotation\n\n     A                B\n    / \\              / \\\n   a   B     ->     A   c\n      / \\          / \\\n     b   c        a   b",
+    "lineNumber": 13,
+    "params": [
+      {
+        "name": "A",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 41,
+    "kind": "file",
+    "name": "src/fundamentals/leftrotatewithparent.js",
+    "content": "\n\n/**\n * -> https://en.wikipedia.org/wiki/Tree_rotation\n *\n *      A                B\n *     / \\              / \\\n *    a   B     ->     A   c\n *       / \\          / \\\n *      b   c        a   b\n */\n\nexport default function leftrotatewithparent ( A ) {\n\n\tconst B = A.right;\n\n\tA.right = B.left;\n\tB.left = A;\n\n\tB.parent = A.parent;\n\tA.right.parent = A;\n\tA.parent = B;\n\n\treturn B;\n\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/leftrotatewithparent.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 42,
+    "kind": "function",
+    "name": "leftrotatewithparent",
+    "memberof": "src/fundamentals/leftrotatewithparent.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/leftrotatewithparent.js~leftrotatewithparent",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/leftrotatewithparent.js",
+    "importStyle": "leftrotatewithparent",
+    "description": "-> https://en.wikipedia.org/wiki/Tree_rotation\n\n     A                B\n    / \\              / \\\n   a   B     ->     A   c\n      / \\          / \\\n     b   c        a   b",
+    "lineNumber": 13,
+    "params": [
+      {
+        "name": "A",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 43,
+    "kind": "file",
+    "name": "src/fundamentals/max.js",
+    "content": "\n\n\nexport default function max ( node ) {\n\n\tif ( node.right === null ) {\n\t\treturn node;\n\t}\n\n\treturn max( node.right );\n\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/max.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 44,
+    "kind": "function",
+    "name": "max",
+    "memberof": "src/fundamentals/max.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/max.js~max",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/max.js",
+    "importStyle": "max",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "node",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 45,
+    "kind": "file",
+    "name": "src/fundamentals/min.js",
+    "content": "\n\nexport default function min ( node ) {\n\n\tif ( node.left === null ) {\n\t\treturn node;\n\t}\n\n\treturn min( node.left );\n\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/min.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 46,
+    "kind": "function",
+    "name": "min",
+    "memberof": "src/fundamentals/min.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/min.js~min",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/min.js",
+    "importStyle": "min",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "node",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 47,
+    "kind": "file",
+    "name": "src/fundamentals/predecessor.js",
+    "content": "\n/**\n * Finds the greatest value in the binary search tree\n * which is smaller than parameter value.\n */\n\nexport default function predecessor ( compare, node, value, pred ) {\n\n\tconst d = compare( value, node.value );\n\n\tif ( d === 0 ) {\n\t\treturn [true, node.value];\n\t}\n\n\telse if ( d < 0 ) {\n\n\t\tif ( node.left === null ) {\n\t\t\treturn [false, pred];\n\t\t}\n\n\t\treturn predecessor( compare, node.left, value, pred );\n\n\t}\n\n\telse {\n\n\t\tif ( node.right === null ) {\n\t\t\treturn [false, node.value];\n\t\t}\n\n\t\treturn predecessor( compare, node.right, value, node.value );\n\t}\n\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/predecessor.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 48,
+    "kind": "function",
+    "name": "predecessor",
+    "memberof": "src/fundamentals/predecessor.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/predecessor.js~predecessor",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/predecessor.js",
+    "importStyle": "predecessor",
+    "description": "Finds the greatest value in the binary search tree\nwhich is smaller than parameter value.",
+    "lineNumber": 7,
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "node",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "pred",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 49,
+    "kind": "file",
+    "name": "src/fundamentals/range.js",
+    "content": "\n\nexport default function range ( compare, node, value, iterators ) {\n\n\t// scan for first node whose\n\t// value equals parameter value\n\n\twhile ( true ) {\n\n\t\tconst d = compare( value, node.value );\n\n\t\tif ( d === 0 ) {\n\t\t\tbreak;\n\t\t}\n\n\t\telse if ( d < 0 ) {\n\t\t\tnode = node.left;\n\t\t}\n\n\t\telse {\n\t\t\tnode = node.right;\n\t\t}\n\n\t\tif ( node === null ) {\n\t\t\treturn iterators;\n\t\t}\n\n\t}\n\n\t// enumerate all nodes whose value\n\t// equals parameter value\n\n\tdo {\n\n\t\titerators.push( node );\n\n\t\tnode = node.left;\n\n\t} while ( node !== null && compare( value, node.value ) === 0 );\n\n\treturn iterators;\n\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/range.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 50,
+    "kind": "function",
+    "name": "range",
+    "memberof": "src/fundamentals/range.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/range.js~range",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/range.js",
+    "importStyle": "range",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "node",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "iterators",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 51,
+    "kind": "file",
+    "name": "src/fundamentals/rbinsertfixup.js",
+    "content": "\n\n/**\n * @param {node} z the node to fix, z is RED\n */\n\nexport default function rbinsertfixup ( T , z ) {\n\n\n\twhile ( z.p.c === RED ) {\n\n\t\t// z is RED\n\t\t// if the parent of z is BLACK\n\t\t// it violates (3)\n\t\t// and we need to fix it\n\n\t\tif ( z.p === z.p.p.l ) {\n\n\t\t\t// if our parent is a left child\n\t\t\t// let y be our uncle\n\n\t\t\t//\n\t\t\t//              z.p.p -> BLACK since z.p is RED\n\t\t\t//            /       \\\n\t\t\t//    RED <- z.p       y\n\t\t\t//         /     \\\n\t\t\t//        ? <-z-> ?\n\t\t\t//            |\n\t\t\t//           RED\n\n\t\t\tlet y = z.p.p.r ;\n\n\t\t\tif ( y.c === RED ) {\n\n\t\t\t\t// if our uncle is red\n\n\t\t\t\t//\n\t\t\t\t//              z.p.p -> ~RED (might violate (3))\n\t\t\t\t//            /       \\\n\t\t\t\t// ~BLACK <- z.p       y -> ~BLACK\n\t\t\t\t//         /     \\\n\t\t\t\t//        ? <-z-> ?\n\t\t\t\t//            |\n\t\t\t\t//           RED\n\n\t\t\t\tz.p.c = BLACK ;\n\t\t\t\ty.c = BLACK ;\n\t\t\t\tz.p.p.c = RED ;\n\t\t\t\tz = z.p.p ;\n\n\t\t\t}\n\n\n\t\t}\n\n\t}\n\n}\n",
+    "static": true,
+    "longname": "src/fundamentals/rbinsertfixup.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 52,
+    "kind": "function",
+    "name": "rbinsertfixup",
+    "memberof": "src/fundamentals/rbinsertfixup.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/rbinsertfixup.js~rbinsertfixup",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/rbinsertfixup.js",
+    "importStyle": "rbinsertfixup",
+    "description": "",
+    "lineNumber": 7,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "z",
+        "description": "the node to fix, z is RED"
+      }
+    ]
+  },
+  {
+    "__docId__": 53,
+    "kind": "file",
+    "name": "src/fundamentals/remove.js",
+    "content": "\n\nexport default function remove ( compare, node, value ) {\n\n\tvar left, right, rightest, delta;\n\n\tdelta = compare( value, node.value );\n\n\tif ( delta === 0 ) {\n\n\t\tleft = node.left;\n\t\tright = node.right;\n\n\t\tif ( left === null ) {\n\t\t\treturn right;\n\t\t}\n\n\t\telse if ( right === null ) {\n\t\t\treturn left;\n\t\t}\n\n\t\telse {\n\n\t\t\trightest = left;\n\n\t\t\twhile ( rightest.right !== null ) {\n\t\t\t\trightest = rightest.right;\n\t\t\t}\n\n\t\t\trightest.right = right;\n\n\t\t\treturn left;\n\n\t\t}\n\n\t}\n\n\telse if ( delta < 0 ) {\n\n\t\tif ( node.left !== null ) {\n\t\t\tnode.left = remove( compare, node.left, value );\n\t\t}\n\n\t\treturn node;\n\n\t}\n\n\telse {\n\n\t\tif ( node.right !== null ) {\n\t\t\tnode.right = remove( compare, node.right, value );\n\t\t}\n\n\t\treturn node;\n\n\t}\n\n}\n\n",
+    "static": true,
+    "longname": "src/fundamentals/remove.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 54,
+    "kind": "function",
+    "name": "remove",
+    "memberof": "src/fundamentals/remove.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/remove.js~remove",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/remove.js",
+    "importStyle": "remove",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "node",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "file",
+    "name": "src/fundamentals/replace.js",
+    "content": "\nexport default function replace ( compare, A, B ) {\n\n\tvar delta, node, value;\n\n\tnode = null;\n\tvalue = B.value;\n\n\twhile ( true ) {\n\n\t\tdelta = compare( value, A.value );\n\n\t\tif ( delta === 0 ) {\n\t\t\tA.value = value;\n\t\t\treturn A;\n\t\t}\n\n\t\telse if ( delta < 0 ) {\n\n\t\t\tnode = A.left;\n\n\t\t\tif ( node === null ) {\n\t\t\t\tA.left = B;\n\t\t\t\treturn B;\n\t\t\t}\n\n\t\t\tA = node;\n\n\t\t}\n\n\t\telse {\n\n\t\t\tnode = A.right;\n\n\t\t\tif ( node === null ) {\n\t\t\t\tA.right = B;\n\t\t\t\treturn B;\n\t\t\t}\n\n\t\t\tA = node;\n\n\t\t}\n\n\t}\n\n\n}\n\n",
+    "static": true,
+    "longname": "src/fundamentals/replace.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 56,
+    "kind": "function",
+    "name": "replace",
+    "memberof": "src/fundamentals/replace.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/replace.js~replace",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/replace.js",
+    "importStyle": "replace",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "A",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "B",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "file",
+    "name": "src/fundamentals/rightrotate.js",
+    "content": "\n\n/**\n * -> https://en.wikipedia.org/wiki/Tree_rotation\n *\n *      B                A\n *     / \\              / \\\n *    A   c     ->     a   B\n *   / \\                  / \\\n *  a   b                b   c\n */\n\nexport default function rightrotate ( B ) {\n\n\tvar A;\n\n\tA = B.left;\n\n\tB.left = A.right;\n\tA.right = B;\n\n\treturn A;\n\n}\n\n",
+    "static": true,
+    "longname": "src/fundamentals/rightrotate.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 58,
+    "kind": "function",
+    "name": "rightrotate",
+    "memberof": "src/fundamentals/rightrotate.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/rightrotate.js~rightrotate",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/rightrotate.js",
+    "importStyle": "rightrotate",
+    "description": "-> https://en.wikipedia.org/wiki/Tree_rotation\n\n     B                A\n    / \\              / \\\n   A   c     ->     a   B\n  / \\                  / \\\n a   b                b   c",
+    "lineNumber": 13,
+    "params": [
+      {
+        "name": "B",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "file",
+    "name": "src/fundamentals/rightrotatewithparent.js",
+    "content": "\n\n/**\n * -> https://en.wikipedia.org/wiki/Tree_rotation\n *\n *      B                A\n *     / \\              / \\\n *    A   c     ->     a   B\n *   / \\                  / \\\n *  a   b                b   c\n */\n\nexport default function rightrotatewithparent ( B ) {\n\n\tvar A;\n\n\tA = B.left;\n\n\tB.left = A.right;\n\tA.right = B;\n\n\tA.parent = B.parent;\n\tB.left.parent = B;\n\tB.parent = A;\n\n\treturn A;\n\n}\n\n",
+    "static": true,
+    "longname": "src/fundamentals/rightrotatewithparent.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 60,
+    "kind": "function",
+    "name": "rightrotatewithparent",
+    "memberof": "src/fundamentals/rightrotatewithparent.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/rightrotatewithparent.js~rightrotatewithparent",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/rightrotatewithparent.js",
+    "importStyle": "rightrotatewithparent",
+    "description": "-> https://en.wikipedia.org/wiki/Tree_rotation\n\n     B                A\n    / \\              / \\\n   A   c     ->     a   B\n  / \\                  / \\\n a   b                b   c",
+    "lineNumber": 13,
+    "params": [
+      {
+        "name": "B",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "file",
+    "name": "src/fundamentals/successor.js",
+    "content": "\n/**\n * Finds the smallest value in the binary search tree\n * which is greater than parameter value.\n */\n\nexport default function successor ( compare, node, value, succ ) {\n\n\tvar d;\n\n\td = compare( value, node.value );\n\n\tif ( d === 0 ) {\n\t\treturn [true, node.value];\n\t}\n\n\telse if ( d < 0 ) {\n\n\t\tif ( node.left === null ) {\n\t\t\treturn [false, node.value];\n\t\t}\n\n\t\treturn successor( compare, node.left, value, node.value );\n\n\t}\n\n\telse {\n\n\t\tif ( node.right === null ) {\n\t\t\treturn [false, succ];\n\t\t}\n\n\t\treturn successor( compare, node.right, value, succ );\n\t}\n\n}\n\n",
+    "static": true,
+    "longname": "src/fundamentals/successor.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 62,
+    "kind": "function",
+    "name": "successor",
+    "memberof": "src/fundamentals/successor.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/successor.js~successor",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/successor.js",
+    "importStyle": "successor",
+    "description": "Finds the smallest value in the binary search tree\nwhich is greater than parameter value.",
+    "lineNumber": 7,
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "node",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "succ",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "file",
+    "name": "src/fundamentals/treeinsert.js",
+    "content": "import insert from './insert' ;\n\nexport default function treeinsert ( compare, tree, node ) {\n\n\tif ( tree.root === null ) {\n\t\ttree.root = node;\n\t}\n\n\telse {\n\t\tinsert( compare, tree.root, node );\n\t}\n\n}\n\n",
+    "static": true,
+    "longname": "src/fundamentals/treeinsert.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 64,
+    "kind": "function",
+    "name": "treeinsert",
+    "memberof": "src/fundamentals/treeinsert.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fundamentals/treeinsert.js~treeinsert",
+    "access": null,
+    "export": true,
+    "importPath": "aureooms-js-bst/src/fundamentals/treeinsert.js",
+    "importStyle": "treeinsert",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "compare",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "tree",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "node",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 65,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "import {\n\tavlbalance ,\n\tfind ,\n\tinordertraversal ,\n\tinsert ,\n\tinsertwithparent ,\n\tleftrotate ,\n\tleftrotatewithparent ,\n\tmax ,\n\tmin ,\n\tpredecessor ,\n\trange ,\n\trbinsertfixup ,\n\tremove ,\n\treplace ,\n\trightrotate ,\n\trightrotatewithparent ,\n\tsuccessor ,\n\ttreeinsert ,\n} from './fundamentals' ;\n\nimport {\n\t__SplayTree1__ ,\n\t__SplayTree2__ ,\n\t__SplayTree3__ ,\n\t__SplayTree4__ ,\n\t__SplayTree5__ ,\n} from './SplayTree';\n\nimport {\n\tUnbalancedBST1,\n}  from './UnbalancedBST' ;\n\nexport default {\n\tavlbalance ,\n\tfind ,\n\tinordertraversal ,\n\tinsert ,\n\tinsertwithparent ,\n\tleftrotate ,\n\tleftrotatewithparent ,\n\tmax ,\n\tmin ,\n\tpredecessor ,\n\trange ,\n\trbinsertfixup ,\n\tremove ,\n\treplace ,\n\trightrotate ,\n\trightrotatewithparent ,\n\tsuccessor ,\n\ttreeinsert ,\n\t__SplayTree1__ ,\n\t__SplayTree2__ ,\n\t__SplayTree3__ ,\n\t__SplayTree4__ ,\n\t__SplayTree5__ ,\n\tUnbalancedBST1 ,\n} ;\n\nexport {\n\tavlbalance ,\n\tfind ,\n\tinordertraversal ,\n\tinsert ,\n\tinsertwithparent ,\n\tleftrotate ,\n\tleftrotatewithparent ,\n\tmax ,\n\tmin ,\n\tpredecessor ,\n\trange ,\n\trbinsertfixup ,\n\tremove ,\n\treplace ,\n\trightrotate ,\n\trightrotatewithparent ,\n\tsuccessor ,\n\ttreeinsert ,\n\t__SplayTree1__ ,\n\t__SplayTree2__ ,\n\t__SplayTree3__ ,\n\t__SplayTree4__ ,\n\t__SplayTree5__ ,\n\tUnbalancedBST1 ,\n} ;\n",
+    "static": true,
+    "longname": "src/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 67,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 68,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 69,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 70,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 71,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 72,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 73,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 74,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 75,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 76,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 77,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 78,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 79,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 80,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 81,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 82,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 83,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 84,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 85,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 86,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 87,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 88,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 89,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 90,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 91,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 92,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 93,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 94,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 95,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 96,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 97,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 98,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 99,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 100,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 101,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 102,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 103,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 104,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 105,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 106,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 107,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 108,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 109,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 110,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 111,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 112,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 113,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": "",
+    "lineNumber": 193,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 115,
+    "kind": "external",
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 116,
+    "kind": "external",
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 117,
+    "kind": "external",
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 118,
+    "kind": "external",
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 119,
+    "kind": "external",
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 120,
+    "kind": "external",
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 121,
+    "kind": "external",
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 122,
+    "kind": "external",
+    "name": "AudioContext",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
+    "access": null,
+    "description": "",
+    "lineNumber": 34,
+    "builtinExternal": true
+  }
+]
