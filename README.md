@@ -1,8 +1,11 @@
-[js-bst](http://aureooms.github.io/js-bst)
+[@aureooms/js-bst](https://aureooms.github.io/js-bst)
 ==
 
+<img src="https://cdn.rawgit.com/aureooms/js-bst/master/media/sketch.png" width="864">
+
 Binary search tree data structure library for JavaScript.
-Parent is [aureooms/js-data-structures](https://github.com/aureooms/js-data-structures).
+See [docs](https://aureooms.github.io/js-bst).
+Parent is [@aureooms/js-data-structures](https://github.com/aureooms/js-data-structures).
 
 ```js
 let tree = new SplayTree( compare.increasing ) ;
