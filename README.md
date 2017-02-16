@@ -14,7 +14,7 @@ tree.find( 58787 ) ; // NIL
 tree.find( 58786 ) ; // BINGO
 ```
 
-[![NPM license](https://img.shields.io/npm/l/@aureooms/js-bst.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-bst/master/LICENSE)
+[![License](https://img.shields.io/github/license/aureooms/js-bst.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-bst/master/LICENSE)
 [![NPM version](https://img.shields.io/npm/v/@aureooms/js-bst.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-bst)
 [![Build Status](https://img.shields.io/travis/aureooms/js-bst.svg?style=flat)](https://travis-ci.org/aureooms/js-bst)
 [![Coverage Status](https://img.shields.io/coveralls/aureooms/js-bst.svg?style=flat)](https://coveralls.io/r/aureooms/js-bst)
