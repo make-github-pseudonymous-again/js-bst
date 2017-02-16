@@ -1,9 +1,9 @@
 import test from 'ava' ;
 
-import compare from "aureooms-js-compare" ;
-import random from "aureooms-js-random" ;
-import * as it from "aureooms-js-itertools" ;
-import fn from "aureooms-js-functools" ;
+import compare from "@aureooms/js-compare" ;
+import random from "@aureooms/js-random" ;
+import * as it from "@aureooms/js-itertools" ;
+import fn from "@aureooms/js-functools" ;
 
 import bst from '../../src' ;
 
