@@ -4,10 +4,10 @@ or [npm](https://github.com/npm/npm).
 
 ### jspm
 ```terminal
-jspm install npm:aureooms-js-bst
+jspm install npm:@aureooms/js-bst
 ```
 
 ### npm
 ```terminal
-npm install aureooms-js-bst --save
+npm install @aureooms/js-bst --save
 ```

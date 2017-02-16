@@ -8,7 +8,7 @@ import 'babel-polyfill' ;
 
 Then
 ```js
-const bst = require( 'aureooms-js-bst' ) ;
+const bst = require( '@aureooms/js-bst' ) ;
 // or
-import bst from 'aureooms-js-bst' ;
+import bst from '@aureooms/js-bst' ;
 ```
