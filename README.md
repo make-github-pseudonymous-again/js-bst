@@ -1,7 +1,7 @@
 :seedling: [@aureooms/js-bst](https://aureooms.github.io/js-bst)
 ==
 
-<img src="https://cdn.rawgit.com/aureooms/js-bst/main/media/sketch.png" width="864">
+<img src="https://ipfs.io/ipfs/QmV3bHSMRbNYydNxpyuke659Nj89UsVcuSyZXibogw4sJ9" width="864">
 
 Binary search tree data structure library for JavaScript.
 See [docs](https://aureooms.github.io/js-bst).
