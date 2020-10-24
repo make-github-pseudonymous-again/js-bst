@@ -1,4 +1,4 @@
-[@aureooms/js-bst](https://aureooms.github.io/js-bst)
+:seedling: [@aureooms/js-bst](https://aureooms.github.io/js-bst)
 ==
 
 <img src="https://cdn.rawgit.com/aureooms/js-bst/main/media/sketch.png" width="864">
