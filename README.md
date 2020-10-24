@@ -1,7 +1,7 @@
 [@aureooms/js-bst](https://aureooms.github.io/js-bst)
 ==
 
-<img src="https://cdn.rawgit.com/aureooms/js-bst/master/media/sketch.png" width="864">
+<img src="https://cdn.rawgit.com/aureooms/js-bst/main/media/sketch.png" width="864">
 
 Binary search tree data structure library for JavaScript.
 See [docs](https://aureooms.github.io/js-bst).
@@ -14,7 +14,7 @@ tree.find( 58787 ) ; // NIL
 tree.find( 58786 ) ; // BINGO
 ```
 
-[![License](https://img.shields.io/github/license/aureooms/js-bst.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-bst/master/LICENSE)
+[![License](https://img.shields.io/github/license/aureooms/js-bst.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-bst/main/LICENSE)
 [![NPM version](https://img.shields.io/npm/v/@aureooms/js-bst.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-bst)
 [![Build Status](https://img.shields.io/travis/aureooms/js-bst.svg?style=flat)](https://travis-ci.org/aureooms/js-bst)
 [![Coverage Status](https://img.shields.io/coveralls/aureooms/js-bst.svg?style=flat)](https://coveralls.io/r/aureooms/js-bst)
