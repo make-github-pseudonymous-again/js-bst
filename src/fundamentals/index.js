@@ -9,7 +9,6 @@ import max from './max' ;
 import min from './min' ;
 import predecessor from './predecessor' ;
 import range from './range' ;
-import rbinsertfixup from './rbinsertfixup' ;
 import remove from './remove' ;
 import replace from './replace' ;
 import rightrotate from './rightrotate' ;
@@ -29,7 +28,6 @@ export default {
 	min ,
 	predecessor ,
 	range ,
-	rbinsertfixup ,
 	remove ,
 	replace ,
 	rightrotate ,
@@ -50,7 +48,6 @@ export {
 	min ,
 	predecessor ,
 	range ,
-	rbinsertfixup ,
 	remove ,
 	replace ,
 	rightrotate ,
