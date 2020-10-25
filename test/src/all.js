@@ -162,11 +162,6 @@ it.exhaust(
 		it.map( fn.compose( [ it.list , it.chain ] ) ,
 			it.product( [
 				[
-					["__SplayTree1__", bst.__SplayTree1__],
-					["__SplayTree2__", bst.__SplayTree2__],
-					["__SplayTree3__", bst.__SplayTree3__],
-					["__SplayTree4__", bst.__SplayTree4__],
-					["__SplayTree5__", bst.__SplayTree5__],
 					["UnbalancedBST1", function ( compare ) {
 						return function ( ) {
 							return new bst.UnbalancedBST1( compare );

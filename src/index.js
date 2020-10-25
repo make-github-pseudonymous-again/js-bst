@@ -20,14 +20,6 @@ import {
 } from './fundamentals' ;
 
 import {
-	__SplayTree1__ ,
-	__SplayTree2__ ,
-	__SplayTree3__ ,
-	__SplayTree4__ ,
-	__SplayTree5__ ,
-} from './SplayTree';
-
-import {
 	UnbalancedBST1,
 }  from './UnbalancedBST' ;
 
@@ -50,11 +42,6 @@ export default {
 	rightrotatewithparent ,
 	successor ,
 	treeinsert ,
-	__SplayTree1__ ,
-	__SplayTree2__ ,
-	__SplayTree3__ ,
-	__SplayTree4__ ,
-	__SplayTree5__ ,
 	UnbalancedBST1 ,
 } ;
 
@@ -77,10 +64,5 @@ export {
 	rightrotatewithparent ,
 	successor ,
 	treeinsert ,
-	__SplayTree1__ ,
-	__SplayTree2__ ,
-	__SplayTree3__ ,
-	__SplayTree4__ ,
-	__SplayTree5__ ,
 	UnbalancedBST1 ,
 } ;
