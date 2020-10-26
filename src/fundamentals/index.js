@@ -1,4 +1,3 @@
-import avlbalance from './avlbalance' ;
 import find from './find' ;
 import inordertraversal from './inordertraversal' ;
 import insert from './insert' ;
@@ -17,7 +16,6 @@ import successor from './successor' ;
 import treeinsert from './treeinsert' ;
 
 export default {
-	avlbalance ,
 	find ,
 	inordertraversal ,
 	insert ,
@@ -37,7 +35,6 @@ export default {
 } ;
 
 export {
-	avlbalance ,
 	find ,
 	inordertraversal ,
 	insert ,

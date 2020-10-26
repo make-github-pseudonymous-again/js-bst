@@ -1,5 +1,4 @@
 import {
-	avlbalance ,
 	find ,
 	inordertraversal ,
 	insert ,
@@ -23,7 +22,6 @@ import {
 }  from './UnbalancedBST' ;
 
 export default {
-	avlbalance ,
 	find ,
 	inordertraversal ,
 	insert ,
@@ -44,7 +42,6 @@ export default {
 } ;
 
 export {
-	avlbalance ,
 	find ,
 	inordertraversal ,
 	insert ,
