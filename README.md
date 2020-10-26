@@ -18,8 +18,8 @@ This project itself does not contain any code.
 ### :baby: Children
 
   - [x] [@aureooms/js-red-black-tree](https://github.com/aureooms/js-red-black-tree)
-  - [x] [@aureooms/js-splay-tree](https://github.com/aureooms/js-splay-tree)
-  - [ ] [AVL tree](https://github.com/aureooms/js-bst/issues/1)
+  - [ ] [@aureooms/js-splay-tree](https://github.com/aureooms/js-splay-tree)
+  - [ ] [@aureooms/js-avl-tree](https://github.com/aureooms/js-avl-tree)
   - [ ] [2-3 tree](https://github.com/aureooms/js-bst/issues/2)
   - [ ] [2-3-4 tree](https://github.com/aureooms/js-bst/issues/15)
   - [ ] [AA tree](https://github.com/aureooms/js-bst/issues/3)
