@@ -1,4 +1,4 @@
-:seedling: [@aureooms/js-bst](https://aureooms.github.io/js-bst)
+:seedling: [@aureooms/js-bst](https://make-github-pseudonymous-again.github.io/js-bst)
 [![License](https://img.shields.io/github/license/aureooms/js-bst.svg)](https://raw.githubusercontent.com/aureooms/js-bst/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/aureooms/js-bst.svg)](https://github.com/aureooms/js-bst/issues)
 ==
@@ -6,7 +6,7 @@
 <img src="https://ipfs.io/ipfs/QmV3bHSMRbNYydNxpyuke659Nj89UsVcuSyZXibogw4sJ9" width="864">
 
 Binary search tree data structures for JavaScript.
-See [docs](https://aureooms.github.io/js-bst).
+See [docs](https://make-github-pseudonymous-again.github.io/js-bst).
 Parent is [@aureooms/js-data-structures](https://github.com/aureooms/js-data-structures).
 
 ## Description
